@@ -99,7 +99,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
 }
 
 .section-shell {
-  padding-inline: clamp(1.5rem, 5vw, 5rem);
+  padding-inline: clamp(1rem, 5vw, 5rem);
 }
 
 .eyebrow-line {

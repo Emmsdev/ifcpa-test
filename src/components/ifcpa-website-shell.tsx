@@ -103,7 +103,7 @@ export function IfcpaWebsiteShell() {
             <button
               type="button"
               onClick={() => setIsMenuOpen((open) => !open)}
-              className="relative isolate inline-flex h-10 items-center gap-2 overflow-hidden bg-[var(--primary)] px-4 text-sm font-semibold text-white shadow-md shadow-[var(--primary)]/15 transition-colors before:absolute before:inset-0 before:-z-10 before:origin-left before:scale-x-0 before:bg-[var(--secondary)] before:transition-transform before:duration-500 before:ease-[cubic-bezier(.22,1,.36,1)] before:content-[''] hover:before:scale-x-100 focus-visible:before:scale-x-100 motion-reduce:before:transition-none xl:hidden"
+              className={`button-no-fill relative inline-flex h-10 items-center gap-2 border px-4 text-sm font-bold shadow-md transition-[background-color,border-color,color,transform,box-shadow] duration-200 hover:-translate-y-px focus-visible:-translate-y-px motion-reduce:transition-none xl:hidden ${isMenuOpen ? "border-[var(--secondary)] bg-white text-[var(--primary)] shadow-[var(--secondary)]/15" : "border-[var(--secondary)] bg-[var(--secondary)] text-[var(--primary)] shadow-[var(--secondary)]/20 hover:bg-[var(--secondary-fixed)]"}`}
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
             >
