@@ -52,18 +52,18 @@ export function AudiovisualSignal({ locale }: { locale: Locale }) {
   const seconds = (elapsed % 60).toString().padStart(2, "0");
 
   return (
-    <section id="studio" className="relative scroll-mt-20 overflow-hidden bg-[var(--primary)] px-6 py-20 text-white md:px-16 lg:py-28" aria-labelledby="studio-signal-title">
+    <section id="studio" className="section-shell relative scroll-mt-20 overflow-hidden bg-[var(--primary)] py-24 text-white lg:py-32" aria-labelledby="studio-signal-title">
       <div className="studio-grid absolute inset-0 opacity-50" aria-hidden="true" />
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-[1380px]">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,.85fr)_minmax(0,1.15fr)] lg:items-end">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--secondary-container)]">{content.eyebrow}</p>
+            <p className="eyebrow-line text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[var(--secondary-container)]">{content.eyebrow}</p>
             <h2 id="studio-signal-title" className="mt-4 max-w-xl font-serif text-4xl font-semibold leading-[1.02] tracking-[-0.04em] sm:text-5xl lg:text-6xl">{content.title}</h2>
           </div>
           <p className="max-w-2xl text-base leading-8 text-white/68 lg:justify-self-end lg:text-lg">{content.body}</p>
         </div>
 
-        <div data-scroll-item className="mt-12 overflow-hidden border border-white/30 bg-transparent shadow-2xl shadow-black/20 lg:grid lg:grid-cols-[1.08fr_.92fr]">
+        <div data-scroll-item className="frame-corners relative mt-14 overflow-hidden border border-white/30 bg-transparent shadow-2xl shadow-black/20 lg:grid lg:grid-cols-[1.08fr_.92fr]">
           <div className="group relative min-h-[360px] overflow-hidden sm:min-h-[470px] lg:min-h-[560px]">
             <Image
               src="/ifcpa-sound-training.jpg"

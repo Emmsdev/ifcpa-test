@@ -124,17 +124,17 @@ export function CompetitionApplicationSection({ locale }: { locale: Locale }) {
   }
 
   return (
-    <section id="inscription-concours" className="scroll-mt-20 bg-white px-6 py-24 md:px-16 lg:py-32">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[.82fr_1.18fr] lg:gap-20">
-          <div>
+    <section id="inscription-concours" className="section-shell scroll-mt-20 bg-[var(--surface-bright)] py-24 lg:py-36">
+      <div className="mx-auto max-w-[1380px]">
+        <div className="grid gap-12 lg:grid-cols-[.78fr_1.22fr] lg:gap-24">
+          <div className="lg:sticky lg:top-32 lg:self-start">
             <SectionIntro eyebrow={content.eyebrow} title={content.title} />
             <p className="mt-6 max-w-xl text-lg leading-8 text-[var(--on-surface-variant)]">{content.lead}</p>
-            <div className="mt-8 border-l-2 border-[var(--secondary)] bg-[var(--surface-container-low)] p-5 text-sm leading-6 text-[var(--on-surface-variant)]">{content.notice}</div>
+            <div className="mt-9 border-l-4 border-[var(--secondary)] bg-[var(--surface-container-low)] p-6 text-sm leading-6 text-[var(--on-surface-variant)]">{content.notice}</div>
             <p className="mt-5 text-xs leading-5 text-[var(--on-surface-variant)]">{content.eligibility}</p>
           </div>
 
-          <div data-scroll-item className="border border-[var(--outline-variant)] bg-[var(--surface)] p-6 shadow-xl shadow-[var(--primary)]/[0.06] sm:p-9">
+          <div data-scroll-item className="frame-corners relative border border-[var(--outline-variant)] bg-[var(--surface)] p-6 shadow-[var(--shadow-soft)] sm:p-10">
             {submission.status === "success" ? (
               <div role="status" className="flex min-h-[520px] flex-col items-center justify-center text-center">
                 <span className="grid h-16 w-16 place-items-center rounded-full bg-[#d9f7e8] text-3xl text-[#0a6b43]" aria-hidden="true">✓</span>
@@ -188,14 +188,14 @@ export function CompetitionApplicationSection({ locale }: { locale: Locale }) {
 }
 
 function FormGroup({ title, children }: { title: string; children: ReactNode }) {
-  return <fieldset className="border-0 p-0 [&+&]:mt-9"><legend className="mb-5 border-b border-[var(--outline-variant)] pb-3 font-serif text-xl font-semibold text-[var(--primary)]">{title}</legend>{children}</fieldset>;
+  return <fieldset className="border-0 p-0 [&+&]:mt-10"><legend className="mb-6 flex w-full items-center gap-4 border-b border-[var(--outline-variant)] pb-4 font-serif text-xl font-semibold tracking-[-0.025em] text-[var(--primary)]">{title}</legend>{children}</fieldset>;
 }
 
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label className="block">
       <span className="text-xs font-bold uppercase tracking-[0.09em] text-[var(--on-surface-variant)]">{label}</span>
-      <span className="mt-2 block [&_input]:w-full [&_input]:border [&_input]:border-[var(--outline-variant)] [&_input]:bg-white [&_input]:px-3 [&_input]:py-3 [&_input]:text-[var(--primary)] [&_input]:outline-none [&_input:focus]:border-[var(--secondary)] [&_select]:w-full [&_select]:border [&_select]:border-[var(--outline-variant)] [&_select]:bg-white [&_select]:px-3 [&_select]:py-3 [&_select]:text-[var(--primary)] [&_select]:outline-none [&_select:focus]:border-[var(--secondary)] [&_textarea]:w-full [&_textarea]:resize-y [&_textarea]:border [&_textarea]:border-[var(--outline-variant)] [&_textarea]:bg-white [&_textarea]:px-3 [&_textarea]:py-3 [&_textarea]:text-[var(--primary)] [&_textarea]:outline-none [&_textarea:focus]:border-[var(--secondary)]">{children}</span>
+      <span className="mt-2 block [&_input]:min-h-12 [&_input]:w-full [&_input]:border [&_input]:border-[var(--outline-variant)] [&_input]:bg-[var(--surface-bright)] [&_input]:px-4 [&_input]:py-3 [&_input]:text-[var(--primary)] [&_input]:outline-none [&_input:transition-colors [&_input:focus]:border-[var(--secondary)] [&_select]:min-h-12 [&_select]:w-full [&_select]:border [&_select]:border-[var(--outline-variant)] [&_select]:bg-[var(--surface-bright)] [&_select]:px-4 [&_select]:py-3 [&_select]:text-[var(--primary)] [&_select]:outline-none [&_select]:transition-colors [&_select:focus]:border-[var(--secondary)] [&_textarea]:w-full [&_textarea]:resize-y [&_textarea]:border [&_textarea]:border-[var(--outline-variant)] [&_textarea]:bg-[var(--surface-bright)] [&_textarea]:px-4 [&_textarea]:py-3 [&_textarea]:text-[var(--primary)] [&_textarea]:outline-none [&_textarea]:transition-colors [&_textarea:focus]:border-[var(--secondary)]">{children}</span>
     </label>
   );
 }

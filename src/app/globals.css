@@ -1,41 +1,55 @@
-@import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Work+Sans:wght@400;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
-  --surface: #f8f9fa;
-  --surface-low: #f3f4f5;
-  --surface-container-low: #f3f4f5;
-  --surface-container: #edeeef;
-  --surface-high: #e7e8e9;
-  --on-surface: #191c1d;
-  --on-surface-variant: #44474f;
-  --outline: #747780;
-  --outline-variant: #c4c6d0;
-  --brand-primary: #42bcf5;
-  --primary: #00204f;
+  --surface: #ffffff;
+  --surface-low: #f8f8f6;
+  --surface-container-low: #f4f4f1;
+  --surface-container: #ecece7;
+  --surface-high: #e2e2dc;
+  --surface-bright: #ffffff;
+  --on-surface: #10243a;
+  --on-surface-variant: #526172;
+  --outline: #788491;
+  --outline-variant: #c9c9c3;
+  --brand-primary: #32c5f4;
+  --primary: #061d3a;
   --secondary: var(--brand-primary);
   --secondary-container: var(--brand-primary);
-  --secondary-fixed: #d9f3ff;
-  --on-secondary-fixed-variant: #004c69;
-  --on-secondary-container: #00516f;
-  --error: #ba1a1a;
-  --font-heading: "Work Sans", Arial, sans-serif;
+  --secondary-fixed: #d9f5ff;
+  --on-secondary-fixed-variant: #064d68;
+  --on-secondary-container: #064d68;
+  --error: #d72d2d;
+  --archive: #d6a149;
+  --font-heading: var(--font-display), Arial, sans-serif;
+  --font-copy: var(--font-body), Arial, sans-serif;
+  --shadow-soft: 0 24px 70px rgb(6 29 58 / 0.12);
+  --shadow-strong: 0 34px 90px rgb(6 29 58 / 0.25);
 }
 
 * { box-sizing: border-box; }
+
+html { scroll-padding-top: 5.25rem; }
 
 body {
   margin: 0;
   background: var(--surface);
   color: var(--on-surface);
-  font-family: "Public Sans", Arial, sans-serif;
+  font-family: var(--font-copy);
+  text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, .font-serif {
-  font-family: "Work Sans", Arial, sans-serif;
+  font-family: var(--font-heading);
 }
 
-.font-mono { font-family: "Public Sans", Arial, sans-serif; }
+.font-mono { font-family: var(--font-copy); }
+
+a, button { -webkit-tap-highlight-color: transparent; }
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--secondary) 80%, white);
+  outline-offset: 4px;
+}
 
 ::selection { background: var(--secondary-container); color: var(--primary); }
 
@@ -47,6 +61,59 @@ h1, h2, h3, .font-serif {
 .text-\[\#2ba9df\] { color: var(--secondary) !important; }
 .bg-\[\#2ba9df\] { background-color: var(--secondary) !important; }
 .text-\[\#e4312a\] { color: var(--error) !important; }
+
+.site-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+.frame-corners::before,
+.frame-corners::after {
+  position: absolute;
+  z-index: 3;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-color: var(--secondary);
+  content: "";
+  pointer-events: none;
+}
+
+.film-frame::before {
+  box-shadow:
+    0 0 0 3px rgb(255 255 255 / 0.04),
+    inset 0 0 0 1px rgb(255 255 255 / 0.06);
+}
+
+.frame-corners::before {
+  top: 0.75rem;
+  left: 0.75rem;
+  border-top: 2px solid var(--secondary);
+  border-left: 2px solid var(--secondary);
+}
+
+.frame-corners::after {
+  right: 0.75rem;
+  bottom: 0.75rem;
+  border-right: 2px solid var(--secondary);
+  border-bottom: 2px solid var(--secondary);
+}
+
+.section-shell {
+  padding-inline: clamp(1.5rem, 5vw, 5rem);
+}
+
+.eyebrow-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.eyebrow-line::before {
+  width: 2rem;
+  height: 2px;
+  background: currentColor;
+  content: "";
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .float-in { animation: float-in 540ms cubic-bezier(.2, .65, .25, 1) both; }
@@ -70,6 +137,7 @@ h1, h2, h3, .font-serif {
     clip-path: inset(0 0 0 0);
     transform: translateY(0);
     filter: blur(0);
+    will-change: auto;
   }
 
   @keyframes float-in {
@@ -145,6 +213,8 @@ button:not(.carousel-dot):not(.button-no-fill):not(:disabled):focus-visible::bef
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+
   .app-button,
   button:not(.carousel-dot):not(.button-no-fill),
   .app-button::before,

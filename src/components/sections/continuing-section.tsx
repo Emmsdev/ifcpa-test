@@ -2,5 +2,31 @@ import { SectionIntro } from "@/components/section-intro";
 import type { SiteCopy } from "@/components/site-types";
 
 export function ContinuingSection({ content }: { content: SiteCopy["continuing"] }) {
-  return <section id="continue" className="border-y border-[#0b4f7e]/10 bg-white px-6 py-24 md:pl-20 md:pr-12 lg:py-32"><div className="mx-auto max-w-7xl"><SectionIntro eyebrow={content.eyebrow} title={content.title} /><p className="mt-5 max-w-2xl text-base leading-7 text-[#37627d]">{content.lead}</p><div className="mt-12 grid border-y border-[#0b4f7e]/15 sm:grid-cols-2 lg:grid-cols-5">{content.formats.map((format) => <div key={format} className="border-b border-r border-[#0b4f7e]/15 p-6 last:border-r-0 sm:last:border-b-0 lg:border-b-0"><span className="font-mono text-[10px] uppercase tracking-widest text-[#2ba9df]">Format</span><h3 className="mt-3 font-serif text-xl">{format}</h3></div>)}</div><div className="mt-10 flex flex-wrap gap-2">{content.topics.map((topic) => <span key={topic} className="border border-[#0b4f7e]/20 px-4 py-2 text-sm text-[#37627d]">{topic}</span>)}</div></div></section>;
+  return (
+    <section id="continue" className="section-shell relative overflow-hidden border-y border-[#0b4f7e]/10 bg-[var(--surface)] py-24 lg:py-36">
+      <span className="pointer-events-none absolute -right-8 top-0 font-serif text-[15rem] font-bold leading-none tracking-[-0.1em] text-[var(--primary)]/[0.025]" aria-hidden="true">PRO</span>
+      <div className="relative mx-auto max-w-[1380px]">
+        <div className="grid gap-8 lg:grid-cols-[1fr_.8fr] lg:items-end">
+          <SectionIntro eyebrow={content.eyebrow} title={content.title} />
+          <p className="max-w-2xl text-base leading-8 text-[#37627d] lg:justify-self-end">{content.lead}</p>
+        </div>
+
+        <div className="mt-16 grid border-l border-t border-[#0b4f7e]/15 sm:grid-cols-2 lg:grid-cols-5">
+          {content.formats.map((format, index) => (
+            <article key={format} className="group min-h-48 border-b border-r border-[#0b4f7e]/15 bg-[var(--surface-bright)] p-6 transition-colors duration-300 hover:bg-[var(--secondary-fixed)]">
+              <span className="font-serif text-4xl font-semibold tracking-[-0.06em] text-[var(--secondary)]/45">{String(index + 1).padStart(2, "0")}</span>
+              <h3 className="mt-8 font-serif text-xl font-semibold tracking-[-0.025em] text-[var(--primary)]">{format}</h3>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-12 border-l-2 border-[var(--error)] pl-6">
+          <p className="mb-5 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[var(--on-surface-variant)]">Compétences / Skills</p>
+          <div className="flex flex-wrap gap-x-6 gap-y-3">
+            {content.topics.map((topic) => <span key={topic} className="text-sm font-semibold text-[var(--primary)]">{topic}</span>)}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

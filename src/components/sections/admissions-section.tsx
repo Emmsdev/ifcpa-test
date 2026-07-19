@@ -58,21 +58,21 @@ export function AdmissionsSection({ content, locale }: { content: SiteCopy["admi
   ];
 
   return (
-    <section id="admissions" className="px-6 py-24 md:pl-20 md:pr-12 lg:py-32">
-      <div className="mx-auto max-w-7xl">
+    <section id="admissions" className="section-shell bg-[var(--surface)] py-24 lg:py-36">
+      <div className="mx-auto max-w-[1380px]">
         <SectionIntro eyebrow={content.eyebrow} title={content.title} />
         <p className="mt-5 max-w-2xl text-base leading-7 text-[#37627d]">{content.lead}</p>
 
-        <article data-scroll-item className="dark-surface-card relative mt-12 overflow-hidden bg-[var(--primary)] p-7 text-white sm:p-10 lg:p-12">
+        <article data-scroll-item className="dark-surface-card frame-corners relative mt-14 overflow-hidden bg-[var(--primary)] p-7 text-white shadow-[var(--shadow-strong)] sm:p-10 lg:p-14">
           <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full border-[42px] border-white/[0.035]" aria-hidden="true" />
           <div className="relative grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--secondary-container)]">{competition.status}</p>
-              <h3 className="mt-4 max-w-3xl font-serif text-3xl font-semibold leading-tight tracking-[-0.03em] sm:text-4xl">{competition.title}</h3>
+              <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[var(--secondary-container)]"><span className="recording-light h-2 w-2 rounded-full bg-[var(--error)]" aria-hidden="true" />{competition.status}</p>
+              <h3 className="mt-5 max-w-3xl font-serif text-3xl font-semibold leading-[1.08] tracking-[-0.04em] sm:text-5xl">{competition.title}</h3>
               <p className="mt-5 max-w-3xl text-base leading-7 text-white/72">{competition.description}</p>
               <div className="mt-7 grid max-w-4xl gap-px bg-white/15 sm:grid-cols-2 lg:grid-cols-3">
                 {keyFacts.map((fact) => (
-                  <div key={fact.label} className="bg-[#03264c] p-5">
+                  <div key={fact.label} className="bg-white/[0.045] p-5 backdrop-blur-sm">
                     <p className="text-xs uppercase tracking-[0.14em] text-white/55">{fact.label}</p>
                     <p className={`mt-2 font-semibold leading-6 ${fact.emphasis ? "text-[var(--secondary-container)]" : "text-white"}`}>{fact.value}</p>
                   </div>
@@ -97,13 +97,16 @@ export function AdmissionsSection({ content, locale }: { content: SiteCopy["admi
           </div>
         </article>
 
-        <div className="mt-14 max-w-3xl">
+        <div className="mt-20 grid gap-0 lg:grid-cols-[.45fr_1fr]">
+          <p className="mb-6 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[var(--secondary)] lg:mb-0 lg:pt-8">01 — 05 · Processus</p>
+          <div>
           {content.steps.map((step) => (
-            <article key={step.number} className="grid grid-cols-[3.25rem_1fr] gap-5 border-t border-[#0b4f7e]/20 py-7 last:border-b">
-              <span className="font-serif text-3xl italic text-[#2ba9df]">{step.number}</span>
-              <div><h3 className="font-serif text-2xl">{step.title}</h3><p className="mt-2 text-sm leading-6 text-[#37627d]">{step.description}</p></div>
+            <article key={step.number} className="grid grid-cols-[3.25rem_1fr] gap-5 border-t border-[#0b4f7e]/20 py-8 last:border-b">
+              <span className="font-serif text-2xl font-semibold text-[#2ba9df]">{step.number}</span>
+              <div><h3 className="font-serif text-2xl font-semibold tracking-[-0.03em]">{step.title}</h3><p className="mt-2 max-w-2xl text-sm leading-6 text-[#37627d]">{step.description}</p></div>
             </article>
           ))}
+          </div>
         </div>
       </div>
     </section>

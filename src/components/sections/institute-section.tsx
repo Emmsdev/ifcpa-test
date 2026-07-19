@@ -25,38 +25,40 @@ export function InstituteSection({ content, locale }: { content: SiteCopy["insti
   const leadership = leadershipCopy[locale];
 
   return (
-    <section id="institut" className="border-y border-[#0b4f7e]/10 bg-white px-6 py-24 md:pl-20 md:pr-12 lg:py-32">
-      <div className="mx-auto max-w-7xl">
+    <section id="institut" className="section-shell border-y border-[#0b4f7e]/10 bg-[var(--surface)] py-24 lg:py-36">
+      <div className="mx-auto max-w-[1380px]">
         <SectionIntro eyebrow={content.eyebrow} title={content.title} />
-        <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-20">
+        <div className="mt-16 grid gap-14 lg:grid-cols-[.78fr_1.22fr] lg:gap-24">
           <div>
-            <p className="max-w-xl text-lg leading-8 text-[#37627d]">{content.lead}</p>
-            <div className="mt-10 border-l border-[#0b4f7e]/20 pl-7">
+            <p className="max-w-xl text-lg font-medium leading-8 text-[#37627d]">{content.lead}</p>
+            <div className="mt-12 border-l border-[#0b4f7e]/20 pl-7">
               {content.history.map((item) => (
-                <article key={item.date} className="relative pb-8 last:pb-0">
-                  <span className="absolute -left-[33px] top-1 h-3 w-3 rounded-full bg-[#2ba9df] ring-4 ring-white" />
-                  <p className="font-mono text-xs text-[#2ba9df]">{item.date}</p>
-                  <h3 className="mt-2 font-serif text-2xl">{item.title}</h3>
+                <article key={item.date} className="relative pb-10 last:pb-0">
+                  <span className="absolute -left-[34px] top-0.5 h-3.5 w-3.5 bg-[#2ba9df] ring-4 ring-[var(--surface)]" />
+                  <p className="font-mono text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#2ba9df]">{item.date}</p>
+                  <h3 className="mt-2 font-serif text-2xl font-semibold tracking-[-0.035em]">{item.title}</h3>
                   <p className="mt-2 max-w-md text-sm leading-6 text-[#37627d]">{item.description}</p>
                 </article>
               ))}
             </div>
           </div>
           <div>
-            <p className="max-w-xl text-lg leading-8 text-[#37627d]">{content.vision}</p>
-            <div className="mt-8 grid grid-cols-1 gap-px bg-[#0b4f7e]/15 sm:grid-cols-2 md:grid-cols-3">
+            <p className="max-w-2xl border-l-4 border-[var(--error)] pl-6 font-serif text-2xl font-semibold leading-9 tracking-[-0.035em] text-[var(--primary)]">{content.vision}</p>
+            <div className="mt-10 grid grid-cols-1 border-t border-[#0b4f7e]/15 sm:grid-cols-2">
               {content.values.map((value) => (
-                <article key={value.mark} className="bg-white p-6">
-                  <span className="font-serif text-3xl italic text-[#2ba9df]">{value.mark}</span>
-                  <h3 className="mt-3 font-serif text-xl">{value.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#37627d]">{value.description}</p>
+                <article key={value.mark} className="grid grid-cols-[2.5rem_1fr] gap-4 border-b border-[#0b4f7e]/15 py-6 sm:pr-6 sm:even:border-l sm:even:pl-6">
+                  <span className="font-serif text-xl font-semibold text-[#2ba9df]">{value.mark}</span>
+                  <div>
+                    <h3 className="font-serif text-xl font-semibold tracking-[-0.025em]">{value.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-[#37627d]">{value.description}</p>
+                  </div>
                 </article>
               ))}
             </div>
           </div>
         </div>
 
-        <article data-scroll-item className="dark-surface-card mt-20 overflow-hidden bg-[var(--primary)] text-white lg:grid lg:grid-cols-[minmax(320px,.72fr)_1fr]">
+        <article data-scroll-item className="dark-surface-card frame-corners relative mt-24 overflow-hidden bg-[var(--primary)] text-white shadow-[var(--shadow-strong)] lg:grid lg:grid-cols-[minmax(320px,.72fr)_1fr]">
           <div className="relative min-h-[440px] lg:min-h-[520px]">
             <Image src="/ifcpa-director-emmanuel-mbede.jpg" alt={leadership.imageAlt} fill sizes="(min-width: 1024px) 36vw, 100vw" className="object-cover object-[center_18%]" />
             <div className="absolute inset-0 bg-gradient-to-t from-[var(--primary)]/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[var(--primary)]/35" />

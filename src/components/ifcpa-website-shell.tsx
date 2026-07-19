@@ -18,7 +18,7 @@ import { AudiovisualSignal } from "@/components/audiovisual-signal";
 import { CompetitionApplicationSection } from "@/components/competition-application-section";
 
 const heritageImage = "/ifcpa-heritage-memory.jpg";
-const navigationLinkClass = "font-serif relative py-2 text-[0.9rem] tracking-[-0.01em] text-[var(--primary)] transition-colors duration-200 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-right after:scale-x-0 after:bg-[var(--secondary)] after:transition-transform after:duration-300 after:content-[''] hover:text-[var(--secondary)] hover:after:origin-left hover:after:scale-x-100 focus-visible:text-[var(--secondary)] focus-visible:after:origin-left focus-visible:after:scale-x-100 motion-reduce:after:transition-none";
+const navigationLinkClass = "relative py-2 text-[0.78rem] font-bold uppercase tracking-[0.06em] text-[var(--primary)] transition-colors duration-200 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-right after:scale-x-0 after:bg-[var(--secondary)] after:transition-transform after:duration-300 after:content-[''] hover:text-[var(--secondary)] hover:after:origin-left hover:after:scale-x-100 focus-visible:text-[var(--secondary)] focus-visible:after:origin-left focus-visible:after:scale-x-100 motion-reduce:after:transition-none";
 
 export function IfcpaWebsiteShell() {
   const [locale, setLocale] = useState<Locale>("fr");
@@ -26,6 +26,10 @@ export function IfcpaWebsiteShell() {
   const mainRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const content = copy[locale];
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   useEffect(() => {
     const targets = mainRef.current?.querySelectorAll<HTMLElement>(
@@ -60,7 +64,7 @@ export function IfcpaWebsiteShell() {
     if (!isMenuOpen) return;
 
     const previousOverflow = document.body.style.overflow;
-    const desktopMedia = window.matchMedia("(min-width: 1024px)");
+    const desktopMedia = window.matchMedia("(min-width: 1280px)");
     const closeOnDesktop = (event: MediaQueryListEvent) => event.matches && setIsMenuOpen(false);
     const closeOnEscape = (event: KeyboardEvent) => event.key === "Escape" && setIsMenuOpen(false);
 
@@ -78,13 +82,13 @@ export function IfcpaWebsiteShell() {
   return (
     <main ref={mainRef} className="relative overflow-hidden bg-[#f4f8fb] text-[#06395f]">
 
-      <header className="fixed inset-x-0 top-0 z-40 border-b border-[#0b4f7e]/10 bg-[#f4f8fb]/92 px-5 py-4 backdrop-blur md:px-10 md:py-5">
+      <header className="fixed inset-x-0 top-0 z-40 px-3 py-3 md:px-6">
         <div ref={progressRef} className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-[var(--secondary)]" aria-hidden="true" />
-        <div className="relative z-10 mx-auto flex max-w-7xl items-center justify-between gap-4">
+        <div className="relative z-10 mx-auto flex max-w-[1380px] items-center justify-between gap-4 border border-[var(--primary)]/10 bg-[var(--surface-bright)]/90 px-4 py-2.5 shadow-[0_14px_45px_rgb(6_29_58/0.08)] backdrop-blur-xl sm:px-5">
           <a href="#top" className="flex items-center" aria-label="IFCPA CRTV">
-            <Image src="/ifcpa-crtv-logo.png" alt="Logo CRTV et IFCPA" width={1306} height={313} className="h-10 w-auto sm:h-11" priority />
+            <Image src="/ifcpa-crtv-logo.png" alt="Logo CRTV et IFCPA" width={1306} height={313} className="h-8 w-auto sm:h-9" priority />
           </a>
-          <nav className="hidden items-center gap-6 lg:flex" aria-label="Navigation principale">
+          <nav className="hidden items-center gap-5 xl:flex" aria-label="Navigation principale">
             {content.nav.map((item) => (
               <a key={item.href} href={item.href} className={`${navigationLinkClass} font-semibold`}>
                 {item.label}
@@ -92,14 +96,14 @@ export function IfcpaWebsiteShell() {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <a href="#inscription-concours" className="app-button hidden bg-[var(--error)] px-4 py-3 text-xs font-bold uppercase tracking-[0.06em] text-white shadow-md shadow-[var(--error)]/15 lg:inline-flex">
-              {locale === "fr" ? "S'inscrire · 2026" : "Apply · 2026"}
+            <a href="#inscription-concours" className="app-button hidden items-center gap-2 bg-[var(--error)] px-4 py-3 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-white shadow-md shadow-[var(--error)]/15 sm:inline-flex">
+              <span className="h-1.5 w-1.5 rounded-full bg-white" aria-hidden="true" />{locale === "fr" ? "Concours · 2026" : "Apply · 2026"}
             </a>
             <LanguageSelector locale={locale} onChange={setLocale} />
             <button
               type="button"
               onClick={() => setIsMenuOpen((open) => !open)}
-              className="relative isolate inline-flex h-10 items-center gap-2 overflow-hidden bg-[var(--primary)] px-4 text-sm font-semibold text-white shadow-md shadow-[var(--primary)]/15 transition-colors before:absolute before:inset-0 before:-z-10 before:origin-left before:scale-x-0 before:bg-[var(--secondary)] before:transition-transform before:duration-500 before:ease-[cubic-bezier(.22,1,.36,1)] before:content-[''] hover:before:scale-x-100 focus-visible:before:scale-x-100 motion-reduce:before:transition-none lg:hidden"
+              className="relative isolate inline-flex h-10 items-center gap-2 overflow-hidden bg-[var(--primary)] px-4 text-sm font-semibold text-white shadow-md shadow-[var(--primary)]/15 transition-colors before:absolute before:inset-0 before:-z-10 before:origin-left before:scale-x-0 before:bg-[var(--secondary)] before:transition-transform before:duration-500 before:ease-[cubic-bezier(.22,1,.36,1)] before:content-[''] hover:before:scale-x-100 focus-visible:before:scale-x-100 motion-reduce:before:transition-none xl:hidden"
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
             >
@@ -116,25 +120,25 @@ export function IfcpaWebsiteShell() {
           aria-label="Navigation mobile"
           aria-hidden={!isMenuOpen}
           inert={!isMenuOpen}
-          className={`fixed inset-0 flex min-h-dvh flex-col overflow-y-auto bg-[var(--surface)] px-5 pb-8 pt-28 transition-[opacity,transform,visibility] duration-500 ease-[cubic-bezier(.22,1,.36,1)] lg:hidden motion-reduce:transition-none ${isMenuOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-5 opacity-0"}`}
+          className={`fixed inset-0 flex min-h-dvh flex-col overflow-y-auto bg-[var(--primary)] px-5 pb-8 pt-28 text-white transition-[opacity,transform,visibility] duration-500 ease-[cubic-bezier(.22,1,.36,1)] xl:hidden motion-reduce:transition-none ${isMenuOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-5 opacity-0"}`}
         >
           <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center py-8">
             <p className="mb-5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--secondary)]">IFCPA / CRTV</p>
             <a href="#inscription-concours" onClick={() => setIsMenuOpen(false)} className="app-button mb-6 flex items-center justify-between bg-[var(--error)] px-5 py-4 font-bold text-white">
               <span>{locale === "fr" ? "S'inscrire au concours 2026" : "Apply for the 2026 entrance exam"}</span><span aria-hidden="true">→</span>
             </a>
-            <div className="border-t border-[var(--outline-variant)]">
+            <div className="border-t border-white/15">
               {content.nav.map((item, index) => (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`group flex items-center justify-between border-b border-[var(--outline-variant)] py-4 transition-[opacity,transform,color,padding] duration-500 hover:pl-2 hover:text-[var(--secondary)] motion-reduce:transition-none sm:py-5 ${isMenuOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
+                  className={`group flex items-center justify-between border-b border-white/15 py-4 transition-[opacity,transform,color,padding] duration-500 hover:pl-2 hover:text-[var(--secondary)] motion-reduce:transition-none sm:py-5 ${isMenuOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
                   style={{ transitionDelay: isMenuOpen ? `${120 + index * 55}ms` : "0ms" }}
                 >
                   <span className="flex items-baseline gap-4">
                     <span className="text-xs font-semibold text-[var(--secondary)]">{String(index + 1).padStart(2, "0")}</span>
-                    <span className="font-serif text-2xl font-semibold tracking-[-0.025em] text-[var(--primary)] sm:text-3xl">{item.label}</span>
+                    <span className="font-serif text-2xl font-semibold tracking-[-0.025em] text-white sm:text-3xl">{item.label}</span>
                   </span>
                   <span aria-hidden="true" className="text-xl text-[var(--secondary)] transition-transform duration-300 group-hover:translate-x-1">↗</span>
                 </a>
@@ -156,11 +160,30 @@ export function IfcpaWebsiteShell() {
       <CompetitionApplicationSection locale={locale} />
       <ContactSection content={content.contact} />
 
-      <footer className="px-6 py-14 md:pl-20 md:pr-12"><div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-2 lg:grid-cols-4"><div><Image src="/ifcpa-crtv-logo.png" alt="Logo CRTV et IFCPA" width={1306} height={313} className="h-11 w-auto" /><p className="mt-4 max-w-xs text-sm leading-6 text-[#37627d]">{content.footer.description}</p></div><FooterLinks title={content.footer.institute} links={content.nav.slice(0, 2)} /><FooterLinks title={content.footer.resources} links={content.nav.slice(2, 4)} /><div><h2 className="font-mono text-xs uppercase tracking-[0.14em] text-[#37627d]">{content.footer.official}</h2><a className={`${navigationLinkClass} mt-2 inline-block`} href="https://crtv.cm" target="_blank" rel="noreferrer">Cameroon Radio Television</a><br /><a className={`${navigationLinkClass} mt-1 inline-block`} href="https://www.facebook.com/ifcpacrtv/" target="_blank" rel="noreferrer">Facebook IFCPA/CRTV</a></div></div><div className="mx-auto mt-12 flex max-w-7xl flex-wrap justify-between gap-4 border-t border-[#0b4f7e]/15 pt-5 text-xs text-[#37627d]"><span>{content.footer.copyright}</span><span>IFCPA / CRTV</span></div></footer>
+      <footer className="section-shell relative overflow-hidden bg-[var(--primary)] py-16 text-white">
+        <div className="studio-grid absolute inset-0 opacity-30" aria-hidden="true" />
+        <div className="relative mx-auto max-w-[1380px]">
+          <div className="grid gap-12 border-b border-white/15 pb-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_.7fr_.7fr_.9fr]">
+            <div>
+              <Image src="/ifcpa-crtv-logo.png" alt="Logo CRTV et IFCPA" width={1306} height={313} className="h-11 w-auto brightness-0 invert" />
+              <p className="mt-6 max-w-sm font-serif text-2xl font-semibold leading-tight tracking-[-0.035em] text-white">{content.footer.description}</p>
+              <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-[var(--secondary)]">Yaoundé · Cameroun</p>
+            </div>
+            <FooterLinks title={content.footer.institute} links={content.nav.slice(0, 2)} />
+            <FooterLinks title={content.footer.resources} links={content.nav.slice(2, 4)} />
+            <div>
+              <h2 className="text-xs font-bold uppercase tracking-[0.16em] text-white/45">{content.footer.official}</h2>
+              <a className="mt-5 block text-sm font-semibold text-white transition hover:text-[var(--secondary)]" href="https://crtv.cm" target="_blank" rel="noreferrer">Cameroon Radio Television ↗</a>
+              <a className="mt-4 block text-sm font-semibold text-white transition hover:text-[var(--secondary)]" href="https://www.facebook.com/ifcpacrtv/" target="_blank" rel="noreferrer">Facebook IFCPA/CRTV ↗</a>
+            </div>
+          </div>
+          <div className="mt-6 flex flex-wrap justify-between gap-4 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-white/42"><span>{content.footer.copyright}</span><span>Image · Son · Mémoire</span></div>
+        </div>
+      </footer>
     </main>
   );
 }
 
 function FooterLinks({ title, links }: { title: string; links: { href: string; label: string }[] }) {
-  return <div><h2 className="font-mono text-xs uppercase tracking-[0.14em] text-[#37627d]">{title}</h2>{links.map((link) => <div key={link.href}><a href={link.href} className={`${navigationLinkClass} mt-2 inline-block`}>{link.label}</a></div>)}</div>;
+  return <div><h2 className="text-xs font-bold uppercase tracking-[0.16em] text-white/45">{title}</h2>{links.map((link) => <div key={link.href}><a href={link.href} className="mt-4 inline-block text-sm font-semibold text-white transition hover:text-[var(--secondary)]">{link.label}</a></div>)}</div>;
 }

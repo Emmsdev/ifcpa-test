@@ -27,19 +27,21 @@ export function PrimaryPathways({ locale }: { locale: Locale }) {
   const content = pathways[locale];
 
   return (
-    <section className="border-y border-[var(--outline-variant)] bg-white px-6 py-20 md:px-16 lg:py-24" aria-labelledby="primary-pathways-title">
-      <div className="mx-auto max-w-7xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--secondary)]">{content.eyebrow}</p>
-        <h2 id="primary-pathways-title" className="mt-4 max-w-3xl font-serif text-3xl leading-tight tracking-tight text-[var(--primary)] sm:text-4xl">{content.title}</h2>
-        <div className="mt-10 grid border-l border-t border-[var(--outline-variant)] sm:grid-cols-2 lg:grid-cols-4">
+    <section className="section-shell border-y border-[var(--outline-variant)] bg-[var(--surface-bright)] py-20 lg:py-28" aria-labelledby="primary-pathways-title">
+      <div className="mx-auto max-w-[1380px]">
+        <div className="grid gap-8 lg:grid-cols-[.65fr_1fr] lg:items-end">
+          <p className="eyebrow-line text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[var(--secondary)]">{content.eyebrow}</p>
+          <h2 id="primary-pathways-title" className="max-w-3xl font-serif text-3xl font-semibold leading-tight tracking-[-0.04em] text-[var(--primary)] sm:text-4xl">{content.title}</h2>
+        </div>
+        <div className="mt-12 grid border-l border-t border-[var(--outline-variant)] sm:grid-cols-2 lg:grid-cols-4">
           {content.items.map((item) => (
-            <a key={item.href} href={item.href} data-scroll-item className="group relative flex min-h-64 flex-col border-b border-r border-[var(--outline-variant)] bg-white p-6 transition-colors duration-300 hover:bg-[var(--secondary-fixed)] focus-visible:bg-[var(--secondary-fixed)] sm:p-7">
-              <span className="text-xs font-semibold text-[var(--secondary)]">{item.number}</span>
-              <h3 className="mt-8 font-serif text-2xl leading-tight text-[var(--primary)]">{item.title}</h3>
-              <p className="mt-4 text-sm leading-6 text-[var(--on-surface-variant)]">{item.description}</p>
-              <span className="mt-auto flex items-center justify-between pt-8 text-sm font-semibold text-[var(--primary)]">
+            <a key={item.href} href={item.href} data-scroll-item className="group relative flex min-h-72 flex-col overflow-hidden border-b border-r border-[var(--outline-variant)] bg-[var(--surface-bright)] p-6 transition-colors duration-500 hover:bg-[var(--primary)] focus-visible:bg-[var(--primary)] sm:p-7">
+              <span className="font-serif text-5xl font-semibold tracking-[-0.07em] text-[var(--secondary)]/35 transition-colors duration-500 group-hover:text-[var(--secondary)] group-focus-visible:text-[var(--secondary)]">{item.number}</span>
+              <h3 className="mt-8 font-serif text-2xl font-semibold leading-tight tracking-[-0.035em] text-[var(--primary)] transition-colors duration-500 group-hover:text-white group-focus-visible:text-white">{item.title}</h3>
+              <p className="mt-4 text-sm leading-6 text-[var(--on-surface-variant)] transition-colors duration-500 group-hover:text-white/68 group-focus-visible:text-white/68">{item.description}</p>
+              <span className="mt-auto flex items-center justify-between pt-8 text-sm font-bold text-[var(--primary)] transition-colors duration-500 group-hover:text-white group-focus-visible:text-white">
                 {item.action}
-                <span aria-hidden="true" className="text-xl text-[var(--brand-accent)] transition-transform duration-300 group-hover:translate-x-1">→</span>
+                <span aria-hidden="true" className="grid h-9 w-9 place-items-center bg-[var(--secondary)] text-lg text-[var(--primary)] transition-transform duration-300 group-hover:translate-x-1">→</span>
               </span>
             </a>
           ))}

@@ -25,10 +25,24 @@ const slideCopy = {
   ],
 } satisfies Record<Locale, { image: string; label: string; caption: string; alt: string }[]>;
 
+const heroStats = {
+  fr: [
+    { value: "1983", label: "Une histoire de transmission" },
+    { value: "18", label: "Filières image, son & médias" },
+    { value: "280", label: "Places au concours 2026" },
+  ],
+  en: [
+    { value: "1983", label: "A legacy of knowledge sharing" },
+    { value: "18", label: "Image, sound & media programmes" },
+    { value: "280", label: "Places in the 2026 intake" },
+  ],
+} satisfies Record<Locale, { value: string; label: string }[]>;
+
 export function HeroSection({ content, locale }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const slides = slideCopy[locale];
+  const stats = heroStats[locale];
 
   useEffect(() => {
     if (isPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -45,71 +59,82 @@ export function HeroSection({ content, locale }: Props) {
   }
 
   return (
-    <section id="top" className="relative flex min-h-screen items-center overflow-hidden px-6 pb-20 pt-32 md:pl-20 md:pr-12">
-      <div className="hero-signal-grid absolute inset-0 opacity-55" aria-hidden="true" />
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-14 lg:grid-cols-[1.08fr_.92fr]">
+    <section id="top" className="section-shell relative flex min-h-[780px] items-center overflow-hidden pb-16 pt-28 lg:min-h-[800px] lg:pb-16 lg:pt-24">
+      <div className="hero-signal-grid absolute inset-0 opacity-70" aria-hidden="true" />
+      <div className="site-grain pointer-events-none absolute inset-0 opacity-[0.045]" aria-hidden="true" />
+      <div className="absolute -right-24 top-28 h-80 w-80 rounded-full border-[68px] border-[var(--secondary)]/[0.06]" aria-hidden="true" />
+      <div className="mx-auto grid w-full max-w-[1380px] items-center gap-16 lg:grid-cols-[1.02fr_.98fr] xl:gap-24">
         <div className="float-in relative z-10">
-          <p className="mb-6 font-mono text-xs uppercase tracking-[0.13em] text-[#2ba9df]">{content.eyebrow}</p>
-          <h1 className="max-w-3xl font-serif text-[2.35rem] leading-[0.98] tracking-tight text-[#06395f] sm:text-[3.5rem] lg:text-[4rem]">{content.title}<br /><em className="text-[#e4312a]">{content.accent}</em></h1>
-          <p className="mt-7 max-w-xl text-base leading-8 text-[#37627d] md:text-lg">{content.description}</p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <a href="#inscription-concours" className="app-button bg-[var(--error)] px-6 py-4 text-sm font-bold text-white shadow-lg shadow-[var(--error)]/20">{content.primary}</a>
-            <a href="#formations" className="app-button border border-[#06395f] px-6 py-4 text-sm font-semibold text-[#06395f]">{content.secondary}</a>
+          <p className="eyebrow-line mb-5 max-w-2xl font-mono text-[0.68rem] font-bold uppercase leading-5 tracking-[0.16em] text-[#2ba9df]">{content.eyebrow}</p>
+          <h1 className="max-w-[740px] font-serif text-[2.4rem] font-semibold leading-[0.98] tracking-[-0.05em] text-[#06395f] sm:text-[3.15rem] lg:text-[clamp(3.35rem,3.8vw,3.85rem)]">
+            {content.title}
+            <em className="mt-2 block font-medium text-[#e4312a]">{content.accent}</em>
+          </h1>
+          <p className="mt-6 max-w-2xl text-base leading-8 text-[#37627d] md:text-lg">{content.description}</p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <a href="#inscription-concours" className="app-button bg-[var(--error)] px-6 py-4 text-sm font-bold text-white shadow-lg shadow-[var(--error)]/20 sm:px-7">{content.primary}<span className="ml-3" aria-hidden="true">↗</span></a>
+            <a href="#formations" className="app-button border border-[#06395f]/35 bg-[var(--surface-bright)] px-6 py-4 text-sm font-semibold text-[#06395f] sm:px-7">{content.secondary}</a>
+          </div>
+          <div className="mt-8 grid max-w-2xl grid-cols-3 border-y border-[var(--primary)]/15 py-4">
+            {stats.map((stat, index) => (
+              <div key={stat.label} className={`pr-3 ${index > 0 ? "border-l border-[var(--primary)]/15 pl-4 sm:pl-6" : ""}`}>
+                <strong className="font-serif text-xl font-semibold tracking-[-0.04em] text-[var(--primary)] sm:text-2xl">{stat.value}</strong>
+                <span className="mt-1 block text-[0.62rem] font-bold uppercase leading-4 tracking-[0.08em] text-[var(--on-surface-variant)] sm:text-[0.7rem]">{stat.label}</span>
+              </div>
+            ))}
           </div>
         </div>
 
         <div
-          className="float-in-delayed relative mx-auto h-[450px] w-full max-w-xl sm:h-[540px]"
+          className="float-in-delayed relative mx-auto h-[420px] w-full max-w-2xl sm:h-[500px] lg:h-[540px]"
           aria-label={locale === "fr" ? "Carrousel de la formation et de la vie à l'IFCPA" : "IFCPA training and campus life carousel"}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           onFocusCapture={() => setIsPaused(true)}
           onBlurCapture={() => setIsPaused(false)}
         >
-          <div className="absolute inset-x-0 top-0 h-[calc(100%-4rem)]">
+          <div className="absolute inset-x-0 bottom-[4.5rem] top-0">
             {slides.map((slide, index) => {
               const offset = (index - activeIndex + slides.length) % slides.length;
-              const state = offset === 0
-                ? "translate3d(7%, 13%, 0) rotate(2.5deg) scale(1)"
-                : offset === 1
-                  ? "translate3d(-8%, -2%, 0) rotate(-5deg) scale(.92)"
-                  : "translate3d(10%, -13%, 0) rotate(4deg) scale(.84)";
-              const isVisible = offset < 3;
+              const isActive = offset === 0;
               return (
                 <article
                   key={slide.image}
-                  aria-hidden={!isVisible}
-                  className="group absolute left-[4%] top-[4%] h-[78%] w-[84%] overflow-hidden border border-[#06395f]/25 bg-[#06395f] p-5 shadow-2xl shadow-[#06395f]/20 transition-[transform,opacity] duration-700 ease-[cubic-bezier(.22,1,.36,1)] motion-reduce:transition-none"
-                  style={{ transform: state, opacity: isVisible ? 1 - offset * 0.24 : 0, zIndex: 30 - offset, pointerEvents: offset === 0 ? "auto" : "none" }}
+                  aria-hidden={!isActive}
+                  className={`film-frame frame-corners group absolute inset-0 overflow-hidden border border-[#06395f]/20 bg-[#06395f] p-4 shadow-[var(--shadow-strong)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(.22,1,.36,1)] motion-reduce:transition-none sm:p-5 ${isActive ? "scale-100 opacity-100" : "pointer-events-none scale-[1.025] opacity-0"}`}
+                  style={{ position: "absolute", inset: 0, zIndex: isActive ? 2 : 1 }}
                 >
                   <Image
                     src={slide.image}
-                    alt={offset === 0 ? slide.alt : ""}
+                    alt={isActive ? slide.alt : ""}
                     fill
                     priority={index < 2}
                     sizes="(min-width: 1024px) 38vw, 82vw"
                     className="object-cover transition duration-1000 group-hover:scale-105 motion-reduce:transition-none"
                     style={{ objectPosition: slide.image === "/ifcpa-director-emmanuel-mbede.jpg" ? "center 22%" : "center" }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#06395f] via-[#06395f]/10 to-transparent" />
-                  <div className="relative flex h-full flex-col justify-end">
-                    <span className="font-mono text-[10px] tracking-widest text-[#7ad4f4]">{slide.label}</span>
-                    <p className="mt-2 font-serif text-xl italic text-white sm:text-2xl">{slide.caption}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#02142d] via-[#02142d]/5 to-[#02142d]/15" />
+                  <div className="absolute left-8 top-8 flex items-center gap-2 bg-[#02142d]/78 px-3 py-2 text-[9px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
+                    <span className="h-2 w-2 rounded-full bg-[var(--error)]" aria-hidden="true" /> REC · {String(index + 1).padStart(2, "0")}
+                  </div>
+                  <div className="relative flex h-full flex-col justify-end px-3 pb-3 sm:px-5 sm:pb-5">
+                    <span className="font-mono text-[10px] font-bold tracking-[0.16em] text-[#7ad4f4]">{slide.label}</span>
+                    <p className="mt-2 max-w-md font-serif text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl">{slide.caption}</p>
                   </div>
                 </article>
               );
             })}
           </div>
 
-          <div className="absolute inset-x-4 bottom-0 z-40 flex items-center justify-between gap-4">
+          <div className="absolute inset-x-4 bottom-0 z-40 flex items-center justify-between gap-4 sm:inset-x-8">
             <div className="flex gap-2" role="tablist" aria-label={locale === "fr" ? "Choisir une image" : "Choose an image"}>
               {slides.map((slide, index) => (
-                <button key={slide.image} type="button" onClick={() => setActiveIndex(index)} aria-label={`${locale === "fr" ? "Afficher" : "Show"} ${slide.caption}`} aria-selected={index === activeIndex} role="tab" className={`carousel-dot h-2.5 transition-[width,background-color] duration-300 ${index === activeIndex ? "w-8 bg-[var(--secondary)]" : "w-2.5 bg-[var(--primary)]/25"}`} />
+                <button key={slide.image} type="button" onClick={() => setActiveIndex(index)} aria-label={`${locale === "fr" ? "Afficher" : "Show"} ${slide.caption}`} aria-selected={index === activeIndex} role="tab" className={`carousel-dot h-2 transition-[width,background-color] duration-300 ${index === activeIndex ? "w-10 bg-[var(--secondary)]" : "w-2 bg-[var(--primary)]/25"}`} />
               ))}
             </div>
             <div className="flex gap-2">
-              <button type="button" onClick={showPrevious} className="app-button grid h-11 w-11 place-items-center border border-[var(--primary)]/20 bg-white text-lg text-[var(--primary)]" aria-label={locale === "fr" ? "Image précédente" : "Previous image"}>←</button>
-              <button type="button" onClick={showNext} className="app-button grid h-11 w-11 place-items-center border border-[var(--primary)]/20 bg-white text-lg text-[var(--primary)]" aria-label={locale === "fr" ? "Image suivante" : "Next image"}>→</button>
+              <button type="button" onClick={showPrevious} className="app-button grid h-12 w-12 place-items-center border border-[var(--primary)]/20 bg-[var(--surface-bright)] text-lg text-[var(--primary)]" aria-label={locale === "fr" ? "Image précédente" : "Previous image"}>←</button>
+              <button type="button" onClick={showNext} className="app-button grid h-12 w-12 place-items-center bg-[var(--primary)] text-lg text-white" aria-label={locale === "fr" ? "Image suivante" : "Next image"}>→</button>
             </div>
           </div>
         </div>
