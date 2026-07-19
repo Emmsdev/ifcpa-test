@@ -165,8 +165,7 @@ export function IfcpaWebsiteShell() {
         <div className="relative mx-auto max-w-[1380px]">
           <div className="grid gap-12 border-b border-white/15 pb-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_.7fr_.7fr_.9fr]">
             <div>
-              <Image src="/ifcpa-crtv-logo.png" alt="Logo CRTV et IFCPA" width={1306} height={313} className="h-11 w-auto brightness-0 invert" />
-              <p className="mt-6 max-w-sm font-serif text-2xl font-semibold leading-tight tracking-[-0.035em] text-white">{content.footer.description}</p>
+              <p className="max-w-sm font-serif text-2xl font-semibold leading-tight tracking-[-0.035em] text-white">{content.footer.description}</p>
               <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-[var(--secondary)]">Yaoundé · Cameroun</p>
             </div>
             <FooterLinks title={content.footer.institute} links={content.nav.slice(0, 2)} />
