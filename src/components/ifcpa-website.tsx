@@ -27,7 +27,7 @@ type SiteCopy = {
   footer: { description: string; institute: string; resources: string; official: string; copyright: string };
 };
 
-const copy: Record<Locale, SiteCopy> = {
+export const copy: Record<Locale, SiteCopy> = {
   fr: {
     language: "EN",
     menu: "Menu",
@@ -41,12 +41,12 @@ const copy: Record<Locale, SiteCopy> = {
       { href: "#contact", label: "Contact" },
     ],
     hero: {
-      eyebrow: "Institut de la Cameroon Radio Television — depuis 1983",
-      title: "Créer les images de",
-      accent: "demain",
-      description: "L'IFCPA forme les créateurs, techniciens et professionnels capables d'imaginer, produire, diffuser et préserver les contenus audiovisuels — et la mémoire qu'ils constituent.",
-      primary: "Découvrir nos formations",
-      secondary: "S'inscrire au concours",
+      eyebrow: "Institut de Formation et de Conservation du Patrimoine Audiovisuel",
+      title: "Former aux métiers de l'image, du son et des médias.",
+      accent: "Préserver la mémoire audiovisuelle.",
+      description: "L'IFCPA/CRTV forme les créateurs, les techniciens et les professionnels capables d'imaginer, de produire, de diffuser et de préserver les contenus audiovisuels d'aujourd'hui et de demain.",
+      primary: "S'inscrire au concours 2026",
+      secondary: "Découvrir les formations",
     },
     institute: {
       eyebrow: "L'institut",
@@ -90,12 +90,13 @@ const copy: Record<Locale, SiteCopy> = {
           { code: "11", title: "Motion & graphic designer", outcome: "Motion designer", description: "Compositing, typographie animée, habillage télévisuel, effets visuels." },
           { code: "12", title: "Marketing digital", outcome: "Community manager", description: "Stratégie digitale, gestion de communautés, campagnes sur les réseaux." },
           { code: "13", title: "Technicien informatique et réseaux", outcome: "Support technique", description: "Systèmes, réseaux locaux, maintenance et sécurité informatique." },
-          { code: "14", title: "Archiviste audiovisuel", outcome: "Documentaliste", description: "Archivistique, métadonnées, numérisation et valorisation des fonds." },
+          { code: "14", title: "Technicien d'exploitation des équipements audiovisuels", outcome: "Technicien d'exploitation ou de diffusion", description: "Configuration, contrôle des signaux, procédures de régie, diffusion et maintenance de premier niveau." },
+          { code: "15", title: "Archiviste audiovisuel", outcome: "Documentaliste", description: "Collecte, traitement, conservation, documentation, numérisation, droits et valorisation des fonds." },
         ] },
         { label: "Cursus de trois ans", courses: [
-          { code: "15", title: "Réalisateur de cinéma", outcome: "Scénariste-réalisateur", description: "Écriture, direction d'acteurs, mise en scène et postproduction d'un film." },
-          { code: "16", title: "Gestion de la production audiovisuelle", outcome: "Chargé de production", description: "Budget, planification, logistique et coordination de tournages." },
-          { code: "17", title: "Réalisateur de films d'animation", outcome: "Storyboarder", description: "Storyboard, création de personnages, direction artistique et animation." },
+          { code: "16", title: "Réalisateur de cinéma", outcome: "Scénariste-réalisateur", description: "Écriture, direction d'acteurs, mise en scène et postproduction d'un film." },
+          { code: "17", title: "Gestion de la production audiovisuelle", outcome: "Chargé de production", description: "Budget, planification, logistique et coordination de tournages." },
+          { code: "18", title: "Réalisateur de films d'animation", outcome: "Storyboarder", description: "Storyboard, création de personnages, direction artistique et animation." },
         ] },
       ],
     },
@@ -122,7 +123,7 @@ const copy: Record<Locale, SiteCopy> = {
     nav: [
       { href: "#institut", label: "Institute" }, { href: "#formations", label: "Programmes" }, { href: "#continue", label: "Continuing education" }, { href: "#patrimoine", label: "Heritage" }, { href: "#admissions", label: "Admissions" }, { href: "#contact", label: "Contact" },
     ],
-    hero: { eyebrow: "Cameroon Radio Television Institute — since 1983", title: "Create the images of", accent: "tomorrow", description: "IFCPA trains creators, technicians and professionals to imagine, produce, broadcast and preserve audiovisual content — and the memory it creates.", primary: "Explore our programmes", secondary: "Apply for the entrance exam" },
+    hero: { eyebrow: "Institute for Training and Audiovisual Heritage Preservation", title: "Train for careers in image, sound and media.", accent: "Preserve audiovisual memory.", description: "IFCPA/CRTV trains creators, technicians and professionals to imagine, produce, broadcast and preserve the audiovisual content of today and tomorrow.", primary: "Apply for the 2026 entrance exam", secondary: "Explore our programmes" },
     institute: { eyebrow: "The institute", title: "A history serving Cameroonian audiovisual media.", lead: "For decades, the Institute has supported the evolution of radio, television, cinema, digital and archive preservation professions.", vision: "To make IFCPA a leading institution for audiovisual professions and heritage preservation training in Central Africa.", history: [
       { date: "1983", title: "Professional Training Centre", description: "The centre was created to train technicians for the emerging television industry." }, { date: "Growth", title: "New specialisms", description: "New audiences, programmes and digital developments broadened the Institute's scope." }, { date: "Today", title: "IFCPA", description: "Two missions combined: training professionals and preserving audiovisual memory." },
     ], values: [
@@ -133,10 +134,10 @@ const copy: Record<Locale, SiteCopy> = {
         { code: "01", title: "Audiovisual technician", outcome: "Camera and editing assistant", description: "Core skills in shooting, sound recording and editing at the heart of the audiovisual chain." }, { code: "02", title: "Graphic designer", outcome: "Layout artist, digital creator", description: "Graphic composition, typography, image processing and visual branding." }, { code: "03", title: "Archive processing technician", outcome: "Digitisation officer", description: "Classification, indexing, digitisation and preventive preservation of records." }, { code: "04", title: "2D animator", outcome: "Digital illustrator", description: "Drawing, storyboarding, motion and 2D animation techniques." }, { code: "05", title: "Control-room and maintenance technician", outcome: "Studio technician", description: "Technical set-up, control room operations, preventive maintenance and fault diagnosis." },
       ] },
       { label: "Two-year programmes", courses: [
-        { code: "06", title: "Video journalist", outcome: "VJ, video reporter", description: "Research, verification and storytelling through image and sound." }, { code: "07", title: "Camera operator", outcome: "Cameraperson", description: "Camera settings, composition, lighting and shooting preparation." }, { code: "08", title: "Sound operator", outcome: "Sound recordist", description: "Microphones, studio and location recording, sound reinforcement and mixing." }, { code: "09", title: "Video editor", outcome: "Report editor", description: "Rush selection, audiovisual storytelling, graphics and export." }, { code: "10", title: "Television director", outcome: "Multi-camera director", description: "Technical breakdown, team direction and live broadcast management." }, { code: "11", title: "Motion & graphic designer", outcome: "Motion designer", description: "Compositing, kinetic typography, TV graphics and visual effects." }, { code: "12", title: "Digital marketing", outcome: "Community manager", description: "Digital strategy, community management and social campaigns." }, { code: "13", title: "IT and network technician", outcome: "Technical support", description: "Systems, local networks, maintenance and IT security." }, { code: "14", title: "Audiovisual archivist", outcome: "Documentalist", description: "Archiving, metadata, digitisation and collection enhancement." },
+        { code: "06", title: "Video journalist", outcome: "VJ, video reporter", description: "Research, verification and storytelling through image and sound." }, { code: "07", title: "Camera operator", outcome: "Cameraperson", description: "Camera settings, composition, lighting and shooting preparation." }, { code: "08", title: "Sound operator", outcome: "Sound recordist", description: "Microphones, studio and location recording, sound reinforcement and mixing." }, { code: "09", title: "Video editor", outcome: "Report editor", description: "Rush selection, audiovisual storytelling, graphics and export." }, { code: "10", title: "Television director", outcome: "Multi-camera director", description: "Technical breakdown, team direction and live broadcast management." }, { code: "11", title: "Motion & graphic designer", outcome: "Motion designer", description: "Compositing, kinetic typography, TV graphics and visual effects." }, { code: "12", title: "Digital marketing", outcome: "Community manager", description: "Digital strategy, community management and social campaigns." }, { code: "13", title: "IT and network technician", outcome: "Technical support", description: "Systems, local networks, maintenance and IT security." }, { code: "14", title: "Audiovisual equipment operations technician", outcome: "Operations or broadcast technician", description: "Equipment configuration, signal monitoring, control-room procedures, broadcasting and first-line maintenance." }, { code: "15", title: "Audiovisual archivist", outcome: "Documentalist", description: "Collection, processing, preservation, documentation, digitisation, rights and collection enhancement." },
       ] },
       { label: "Three-year programmes", courses: [
-        { code: "15", title: "Film director", outcome: "Writer-director", description: "Writing, directing actors, staging and film post-production." }, { code: "16", title: "Audiovisual production management", outcome: "Production coordinator", description: "Budgeting, scheduling, logistics and production coordination." }, { code: "17", title: "Animation film director", outcome: "Storyboard artist", description: "Storyboarding, character creation, art direction and animation." },
+        { code: "16", title: "Film director", outcome: "Writer-director", description: "Writing, directing actors, staging and film post-production." }, { code: "17", title: "Audiovisual production management", outcome: "Production coordinator", description: "Budgeting, scheduling, logistics and production coordination." }, { code: "18", title: "Animation film director", outcome: "Storyboard artist", description: "Storyboarding, character creation, art direction and animation." },
       ] },
     ] },
     continuing: { eyebrow: "Continuing education", title: "Training professionals, supporting organisations.", lead: "Custom modules, seminars, workshops, masterclasses and bespoke programmes for CRTV staff, media organisations, companies and institutions.", formats: ["Custom", "Seminars", "Practical workshops", "Masterclasses", "Bespoke"], topics: ["Mobile journalism", "AI for audiovisual media", "Camera work", "Digital editing", "Motion design", "Broadcast control", "Archive digitisation", "Digital marketing"] },
@@ -154,7 +155,7 @@ const copy: Record<Locale, SiteCopy> = {
 const filmImage = "https://unsplash.com/photos/Q1JB5XRwJkQ/download?force=true&w=1200";
 const archiveImage = "https://unsplash.com/photos/tV80374iytg/download?force=true&w=1200";
 
-export function IfcpaWebsite() {
+export function LegacyIfcpaWebsite() {
   const [locale, setLocale] = useState<Locale>("fr");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [expandedCourse, setExpandedCourse] = useState<string | null>(null);

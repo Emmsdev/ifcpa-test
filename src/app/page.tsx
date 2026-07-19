@@ -1,5 +1,5 @@
-import { IfcpaWebsite } from "@/components/ifcpa-website";
+import { IfcpaWebsiteShell } from "@/components/ifcpa-website-shell";
 
 export default function Home() {
-  return <IfcpaWebsite />;
+  return <IfcpaWebsiteShell />;
 }

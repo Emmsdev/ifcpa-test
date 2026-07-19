@@ -22,9 +22,18 @@ npm run lint
 npm run build
 ```
 
+## SEO en production
+
+Copiez `.env.example` vers `.env.local` et remplacez `NEXT_PUBLIC_SITE_URL` par
+le domaine public réel avant le déploiement. Cette URL alimente le canonical,
+les données structurées, `robots.txt` et `sitemap.xml`.
+
 ## Structure
 
-- `src/app/page.tsx` : page d'accueil.
-- `src/components/ifcpa-website.tsx` : contenu et interactions du site,
-  notamment le sélecteur français / anglais.
+- `src/app/page.tsx` : point d'entrée de la page d'accueil.
+- `src/components/ifcpa-website-shell.tsx` : navigation, langue, menu mobile
+  et composition de la page.
+- `src/components/sections/` : sections Hero, Institut, Formations, Formation
+  continue, Patrimoine, Admissions et Contact.
+- `src/components/language-selector.tsx` : menu déroulant Français / English.
 - `src/app/globals.css` : socle Tailwind et détails visuels partagés.
