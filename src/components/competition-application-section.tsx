@@ -177,8 +177,8 @@ export function CompetitionApplicationSection({ locale }: { locale: Locale }) {
       {/* Pop-up Modal de Confirmation pour l'Inscription au Concours */}
       {submission.status === "success" && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-in fade-in duration-200">
-          <div role="dialog" aria-modal="true" className="relative w-full max-w-lg overflow-hidden rounded-2xl bg-white p-8 text-center shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-100">
-            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-inner">
+          <div role="dialog" aria-modal="true" className="relative w-full max-w-lg overflow-hidden rounded-none bg-white p-8 text-center shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-100">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-none bg-emerald-100 text-emerald-600 shadow-inner">
               <svg className="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
               </svg>
@@ -187,7 +187,7 @@ export function CompetitionApplicationSection({ locale }: { locale: Locale }) {
             <h3 className="mt-6 font-serif text-2xl font-bold text-[#06395f] sm:text-3xl">{content.successTitle}</h3>
             <p className="mt-3 text-sm leading-relaxed text-slate-600">{content.successBody}</p>
 
-            <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50/80 p-5 text-center">
+            <div className="mt-6 rounded-none border border-amber-200 bg-amber-50/80 p-5 text-center">
               <span className="block text-xs font-bold uppercase tracking-wider text-amber-800">Référence de candidature</span>
               <strong className="mt-2 block font-mono text-xl font-extrabold tracking-widest text-[#06395f]">
                 {submission.reference}
@@ -201,7 +201,7 @@ export function CompetitionApplicationSection({ locale }: { locale: Locale }) {
             <button
               type="button"
               onClick={() => setSubmission({ status: "idle" })}
-              className="mt-8 w-full rounded-xl bg-[#06395f] py-4 text-base font-bold text-white shadow-lg shadow-[#06395f]/20 transition hover:bg-[#0b4f7e] focus:outline-none"
+              className="mt-8 w-full rounded-none bg-[#06395f] py-4 text-base font-bold text-white shadow-lg shadow-[#06395f]/20 transition hover:bg-[#0b4f7e] focus:outline-none"
             >
               Fermer et revenir au site
             </button>

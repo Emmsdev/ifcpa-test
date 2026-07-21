@@ -98,8 +98,8 @@ export function ContactSection({ content }: { content: SiteCopy["contact"] }) {
       {/* Pop-up Modal de Confirmation de Message */}
       {isSent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-in fade-in duration-200">
-          <div role="dialog" aria-modal="true" className="relative w-full max-w-md overflow-hidden rounded-2xl bg-white p-8 text-center shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-100">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-inner">
+          <div role="dialog" aria-modal="true" className="relative w-full max-w-md overflow-hidden rounded-none bg-white p-8 text-center shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-100">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-none bg-emerald-100 text-emerald-600 shadow-inner">
               <svg className="h-9 w-9" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
               </svg>
@@ -110,14 +110,14 @@ export function ContactSection({ content }: { content: SiteCopy["contact"] }) {
               {senderName ? `Merci ${senderName} ! ` : ""}Votre demande a bien été transmise au service de contact de l&apos;IFCPA. Notre équipe vous répondra par email dans les meilleurs délais.
             </p>
             
-            <div className="mt-6 rounded-xl bg-slate-50 p-4 text-xs font-semibold text-[#06395f]">
+            <div className="mt-6 rounded-none bg-slate-50 p-4 text-xs font-semibold text-[#06395f]">
               ✨ Confirmation de prise en charge instantanée
             </div>
             
             <button
               type="button"
               onClick={() => setIsSent(false)}
-              className="mt-7 w-full rounded-xl bg-[#06395f] py-3.5 text-sm font-bold text-white shadow-lg shadow-[#06395f]/20 transition hover:bg-[#0b4f7e] focus:outline-none"
+              className="mt-7 w-full rounded-none bg-[#06395f] py-3.5 text-sm font-bold text-white shadow-lg shadow-[#06395f]/20 transition hover:bg-[#0b4f7e] focus:outline-none"
             >
               Fermer la confirmation
             </button>
