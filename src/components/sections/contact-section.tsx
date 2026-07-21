@@ -7,7 +7,17 @@ import type { SiteCopy } from "@/components/site-types";
 
 export function ContactSection({ content }: { content: SiteCopy["contact"] }) {
   const [isSent, setIsSent] = useState(false);
-  function submitContact(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setIsSent(true); }
+  const [senderName, setSenderName] = useState("");
+
+  function submitContact(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const name = String(formData.get("name") ?? "");
+    setSenderName(name);
+    setIsSent(true);
+    event.currentTarget.reset();
+  }
+
   return (
     <section id="contact" className="section-shell border-t border-[#0b4f7e]/10 bg-[var(--surface)] py-24 lg:py-36">
       <div className="mx-auto max-w-[1380px]">
@@ -20,8 +30,9 @@ export function ContactSection({ content }: { content: SiteCopy["contact"] }) {
             </div>
             <Field label={content.subject}><select name="subject">{content.subjects.map((subject) => <option key={subject}>{subject}</option>)}</select></Field>
             <Field label={content.message}><textarea required name="message" rows={5} /></Field>
-            <button type="submit" className="app-button bg-[#06395f] px-7 py-4 text-sm font-bold text-white">{content.send}<span className="ml-3" aria-hidden="true">→</span></button>
-            {isSent && <p role="status" className="border-l-2 border-[var(--secondary)] bg-[var(--secondary-fixed)] p-4 text-sm leading-6 text-[#0b4f7e]">{content.sent}</p>}
+            <button type="submit" className="app-button bg-[#06395f] px-7 py-4 text-sm font-bold text-white transition hover:bg-[#0b4f7e]">
+              {content.send}<span className="ml-3" aria-hidden="true">→</span>
+            </button>
           </form>
 
           <div className="relative bg-[var(--primary)] p-7 text-white sm:p-10 lg:p-14">
@@ -45,6 +56,36 @@ export function ContactSection({ content }: { content: SiteCopy["contact"] }) {
           </div>
         </div>
       </div>
+
+      {/* Pop-up Modal de Confirmation de Message */}
+      {isSent && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-in fade-in duration-200">
+          <div role="dialog" aria-modal="true" className="relative w-full max-w-md overflow-hidden rounded-2xl bg-white p-8 text-center shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-100">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-inner">
+              <svg className="h-9 w-9" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            
+            <h3 className="mt-5 font-serif text-2xl font-bold text-[#06395f]">Message envoyé avec succès !</h3>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              {senderName ? `Merci ${senderName} ! ` : ""}Votre demande a bien été transmise au service de contact de l&apos;IFCPA. Notre équipe vous répondra par email dans les meilleurs délais.
+            </p>
+            
+            <div className="mt-6 rounded-xl bg-slate-50 p-4 text-xs font-semibold text-[#06395f]">
+              ✨ Confirmation de prise en charge instantanée
+            </div>
+            
+            <button
+              type="button"
+              onClick={() => setIsSent(false)}
+              className="mt-7 w-full rounded-xl bg-[#06395f] py-3.5 text-sm font-bold text-white shadow-lg shadow-[#06395f]/20 transition hover:bg-[#0b4f7e] focus:outline-none"
+            >
+              Fermer la confirmation
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
