@@ -22,7 +22,7 @@ export function HeritageSection({ content, archiveImage }: { content: SiteCopy["
         </div>
 
         <figure data-scroll-item className="frame-corners relative min-h-[560px] overflow-hidden lg:min-h-full">
-          <Image src={archiveImage} alt="" fill sizes="(min-width: 1024px) 52vw, 100vw" className="object-cover" />
+          <Image src={archiveImage} alt="Conservation et numérisation du patrimoine audiovisuel de la CRTV" fill sizes="(min-width: 1024px) 52vw, 100vw" className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--primary)] via-[var(--primary)]/12 to-transparent lg:bg-gradient-to-r lg:from-[var(--primary)]/35 lg:via-transparent lg:to-transparent" />
           <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between gap-6 sm:bottom-12 sm:left-12 sm:right-12">
             <figcaption className="max-w-xs bg-[var(--primary)]/85 px-5 py-4 text-[0.68rem] font-bold uppercase leading-5 tracking-[0.16em] text-white backdrop-blur-md">{content.label}</figcaption>

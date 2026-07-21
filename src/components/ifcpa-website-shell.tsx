@@ -16,6 +16,7 @@ import { CampusSection } from "@/components/sections/campus-section";
 import { PrimaryPathways } from "@/components/primary-pathways";
 import { AudiovisualSignal } from "@/components/audiovisual-signal";
 import { CompetitionApplicationSection } from "@/components/competition-application-section";
+import { SeoStructuredData } from "@/components/seo-structured-data";
 
 const heritageImage = "/ifcpa-heritage-memory.jpg";
 const navigationLinkClass = "relative py-2 text-[0.78rem] font-bold uppercase tracking-[0.06em] text-[var(--primary)] transition-colors duration-200 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-right after:scale-x-0 after:bg-[var(--secondary)] after:transition-transform after:duration-300 after:content-[''] hover:text-[var(--secondary)] hover:after:origin-left hover:after:scale-x-100 focus-visible:text-[var(--secondary)] focus-visible:after:origin-left focus-visible:after:scale-x-100 motion-reduce:after:transition-none";
@@ -81,6 +82,7 @@ export function IfcpaWebsiteShell() {
 
   return (
     <main ref={mainRef} className="relative overflow-hidden bg-[#f4f8fb] text-[#06395f]">
+      <SeoStructuredData content={copy.fr} />
 
       <header className="fixed inset-x-0 top-0 z-40 px-3 py-3 md:px-6">
         <div ref={progressRef} className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-[var(--secondary)]" aria-hidden="true" />

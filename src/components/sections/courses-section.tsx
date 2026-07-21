@@ -15,12 +15,12 @@ export function CoursesSection({ content }: { content: SiteCopy["courses"] }) {
 
         <div data-scroll-item className="mt-12 grid min-h-[280px] overflow-hidden bg-[var(--primary)] shadow-[var(--shadow-soft)] sm:grid-cols-[1.35fr_.65fr]">
           <figure className="frame-corners group relative min-h-[280px] overflow-hidden">
-            <Image src="/ifcpa-campus-life.png" alt="" fill sizes="(min-width: 1024px) 65vw, 100vw" className="object-cover transition duration-1000 group-hover:scale-[1.025] motion-reduce:transition-none" />
+            <Image src="/ifcpa-campus-life.png" alt="Apprenants de l'IFCPA en formation audiovisuelle sur le campus de Yaoundé" fill sizes="(min-width: 1024px) 65vw, 100vw" className="object-cover transition duration-1000 group-hover:scale-[1.025] motion-reduce:transition-none" />
             <div className="absolute inset-0 bg-gradient-to-r from-[var(--primary)]/30 via-transparent to-transparent" />
             <figcaption className="absolute bottom-6 left-7 bg-[var(--primary)]/82 px-4 py-3 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white backdrop-blur">IMAGE · SON · PRODUCTION</figcaption>
           </figure>
           <figure className="relative hidden overflow-hidden border-l border-white/15 sm:block">
-            <Image src="/ifcpa-film-production.jpg" alt="" fill sizes="34vw" className="object-cover opacity-80 transition duration-1000 hover:scale-105 motion-reduce:transition-none" />
+            <Image src="/ifcpa-film-production.jpg" alt="Atelier pratique de production de film à l'IFCPA" fill sizes="34vw" className="object-cover opacity-80 transition duration-1000 hover:scale-105 motion-reduce:transition-none" />
             <div className="absolute inset-0 bg-[var(--primary)]/20" />
           </figure>
         </div>
@@ -36,7 +36,7 @@ export function CoursesSection({ content }: { content: SiteCopy["courses"] }) {
                   const isExpanded = expandedCourse === key;
 
                   return (
-                    <article key={key} className="border-b border-[#0b4f7e]/15 transition-colors hover:bg-[var(--surface)]">
+                    <article id={`formation-${course.code}`} key={key} className="scroll-mt-24 border-b border-[#0b4f7e]/15 transition-colors hover:bg-[var(--surface)]">
                       <button
                         type="button"
                         className="button-no-fill grid w-full grid-cols-[2.5rem_1fr_auto] gap-3 px-3 py-6 text-left sm:grid-cols-[4rem_1fr_minmax(10rem,14rem)_auto] sm:gap-5"

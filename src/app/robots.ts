@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
+import { absoluteUrl, SITE_URL } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   return {
-    rules: { userAgent: "*", allow: "/" },
-    sitemap: `${siteUrl}/sitemap.xml`,
+    rules: { userAgent: "*", allow: "/", disallow: ["/api/"] },
+    sitemap: absoluteUrl("/sitemap.xml"),
+    host: SITE_URL,
   };
 }
