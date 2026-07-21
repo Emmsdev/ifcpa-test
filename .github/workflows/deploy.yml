@@ -1,0 +1,51 @@
+name: CI/CD — Déploiement auto
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  #####################################################
+  # CI : Vérification à chaque PR/push
+  #####################################################
+  ci:
+    name: CI — Lint & Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+
+  #####################################################
+  # CD : Déploiement self-hosté (push sur main uniquement)
+  #####################################################
+  deploy:
+    name: CD — Deploy to server
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Déploiement via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: 22
+          script: |
+            echo "Déploiement déclenché par GitHub Actions"
+            cd /home/latioms/ifcpa-test
+            git pull origin main
+            npm ci
+            npm run build
+            sudo systemctl restart ifcpa-test
+            echo "✅ Déploiement terminé"
