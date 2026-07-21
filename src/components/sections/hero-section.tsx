@@ -60,7 +60,6 @@ export function HeroSection({ content, locale }: Props) {
 
   return (
     <section id="top" className="section-shell relative flex min-h-[780px] items-center overflow-hidden pb-16 pt-28 lg:min-h-[800px] lg:pb-16 lg:pt-24">
-      <div className="hero-signal-grid absolute inset-0 opacity-70" aria-hidden="true" />
       <div className="site-grain pointer-events-none absolute inset-0 opacity-[0.045]" aria-hidden="true" />
       <div className="absolute -right-24 top-28 h-80 w-80 rounded-full border-[68px] border-[var(--secondary)]/[0.06]" aria-hidden="true" />
       <div className="mx-auto grid w-full max-w-[1380px] items-center gap-16 lg:grid-cols-[1.02fr_.98fr] xl:gap-24">

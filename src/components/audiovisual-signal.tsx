@@ -53,7 +53,6 @@ export function AudiovisualSignal({ locale }: { locale: Locale }) {
 
   return (
     <section id="studio" className="section-shell relative scroll-mt-20 overflow-hidden bg-[var(--primary)] py-24 text-white lg:py-32" aria-labelledby="studio-signal-title">
-      <div className="studio-grid absolute inset-0 opacity-50" aria-hidden="true" />
       <div className="relative mx-auto max-w-[1380px]">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,.85fr)_minmax(0,1.15fr)] lg:items-end">
           <div>
