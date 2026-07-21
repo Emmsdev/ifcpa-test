@@ -6,16 +6,43 @@ import { SectionIntro } from "@/components/section-intro";
 import type { SiteCopy } from "@/components/site-types";
 
 export function ContactSection({ content }: { content: SiteCopy["contact"] }) {
+  const [isSending, setIsSending] = useState(false);
   const [isSent, setIsSent] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [senderName, setSenderName] = useState("");
 
-  function submitContact(event: FormEvent<HTMLFormElement>) {
+  async function submitContact(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const name = String(formData.get("name") ?? "");
+    const email = String(formData.get("email") ?? "");
+    const subject = String(formData.get("subject") ?? "");
+    const message = String(formData.get("message") ?? "");
+
+    setErrorMessage(null);
+    setIsSending(true);
     setSenderName(name);
-    setIsSent(true);
-    event.currentTarget.reset();
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
+
+      const data = (await response.json()) as { message?: string; success?: boolean };
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || "Une erreur est survenue lors de l'envoi.");
+      }
+
+      form.reset();
+      setIsSent(true);
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "Erreur lors de l'envoi.");
+    } finally {
+      setIsSending(false);
+    }
   }
 
   return (
@@ -30,8 +57,19 @@ export function ContactSection({ content }: { content: SiteCopy["contact"] }) {
             </div>
             <Field label={content.subject}><select name="subject">{content.subjects.map((subject) => <option key={subject}>{subject}</option>)}</select></Field>
             <Field label={content.message}><textarea required name="message" rows={5} /></Field>
-            <button type="submit" className="app-button bg-[#06395f] px-7 py-4 text-sm font-bold text-white transition hover:bg-[#0b4f7e]">
-              {content.send}<span className="ml-3" aria-hidden="true">→</span>
+            
+            {errorMessage && (
+              <p role="alert" className="border-l-4 border-red-500 bg-red-50 p-4 text-sm text-red-700">
+                {errorMessage}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={isSending}
+              className="app-button bg-[#06395f] px-7 py-4 text-sm font-bold text-white transition hover:bg-[#0b4f7e] disabled:opacity-60 disabled:cursor-wait"
+            >
+              {isSending ? "Transmission en cours…" : content.send}<span className="ml-3" aria-hidden="true">→</span>
             </button>
           </form>
 

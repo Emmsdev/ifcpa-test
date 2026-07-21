@@ -61,7 +61,18 @@ function escapeHtml(value: string) {
 
 export async function POST(request: NextRequest) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== request.nextUrl.origin) return Response.json({ message: "Origine de la demande non autorisée." }, { status: 403 });
+  const host = request.headers.get("host");
+  if (origin && host) {
+    try {
+      const originUrl = new URL(origin);
+      const hostName = host.split(":")[0];
+      if (originUrl.hostname !== hostName && originUrl.hostname !== "localhost" && originUrl.hostname !== "127.0.0.1") {
+        return Response.json({ message: "Origine de la demande non autorisée." }, { status: 403 });
+      }
+    } catch {
+      // Ignore URL parsing errors
+    }
+  }
   const contentLength = Number(request.headers.get("content-length") ?? "0");
   if (contentLength > maxBodySize) return Response.json({ message: "Le formulaire est trop volumineux." }, { status: 413 });
 
