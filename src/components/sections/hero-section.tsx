@@ -60,7 +60,6 @@ export function HeroSection({ content, locale }: Props) {
 
   return (
     <section id="top" className="section-shell relative flex min-h-[780px] items-center overflow-hidden pb-16 pt-28 lg:min-h-[800px] lg:pb-16 lg:pt-24">
-      <div className="hero-signal-grid absolute inset-0 opacity-70" aria-hidden="true" />
       <div className="site-grain pointer-events-none absolute inset-0 opacity-[0.045]" aria-hidden="true" />
       <div className="absolute -right-24 top-28 h-80 w-80 rounded-full border-[68px] border-[var(--secondary)]/[0.06]" aria-hidden="true" />
       <div className="mx-auto grid w-full max-w-[1380px] items-center gap-16 lg:grid-cols-[1.02fr_.98fr] xl:gap-24">
@@ -101,8 +100,9 @@ export function HeroSection({ content, locale }: Props) {
                 <article
                   key={slide.image}
                   aria-hidden={!isActive}
-                  className={`film-frame frame-corners group absolute inset-0 overflow-hidden border border-[#06395f]/20 bg-[#06395f] p-4 shadow-[var(--shadow-strong)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(.22,1,.36,1)] motion-reduce:transition-none sm:p-5 ${isActive ? "scale-100 opacity-100" : "pointer-events-none scale-[1.025] opacity-0"}`}
-                  style={{ position: "absolute", inset: 0, zIndex: isActive ? 2 : 1 }}
+                  className={`film-frame frame-corners group absolute inset-0 overflow-hidden border border-[#06395f]/20 bg-[#06395f] p-4 shadow-[var(--shadow-strong)] transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none sm:p-5 ${
+                    isActive ? "z-20 opacity-100 scale-100 translate-y-0" : "z-10 pointer-events-none opacity-0 scale-98 translate-y-1"
+                  }`}
                 >
                   <Image
                     src={slide.image}
@@ -110,12 +110,12 @@ export function HeroSection({ content, locale }: Props) {
                     fill
                     priority={index < 2}
                     sizes="(min-width: 1024px) 38vw, 82vw"
-                    className="object-cover transition duration-1000 group-hover:scale-105 motion-reduce:transition-none"
+                    className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105 motion-reduce:transition-none"
                     style={{ objectPosition: slide.image === "/ifcpa-director-emmanuel-mbede.jpg" ? "center 22%" : "center" }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#02142d] via-[#02142d]/5 to-[#02142d]/15" />
-                  <div className="absolute left-8 top-8 flex items-center gap-2 bg-[#02142d]/78 px-3 py-2 text-[9px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
-                    <span className="h-2 w-2 rounded-full bg-[var(--error)]" aria-hidden="true" /> REC · {String(index + 1).padStart(2, "0")}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#02142d] via-[#02142d]/10 to-[#02142d]/20 transition-opacity duration-700" />
+                  <div className="absolute left-8 top-8 flex items-center gap-2 bg-[#02142d]/85 px-3.5 py-2 text-[9px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md shadow-md">
+                    <span className="h-2 w-2 rounded-full bg-[var(--error)] animate-pulse" aria-hidden="true" /> REC · {String(index + 1).padStart(2, "0")}
                   </div>
                   <div className="relative flex h-full flex-col justify-end px-3 pb-3 sm:px-5 sm:pb-5">
                     <span className="font-mono text-[10px] font-bold tracking-[0.16em] text-[#7ad4f4]">{slide.label}</span>
@@ -127,14 +127,38 @@ export function HeroSection({ content, locale }: Props) {
           </div>
 
           <div className="absolute inset-x-4 bottom-0 z-40 flex items-center justify-between gap-4 sm:inset-x-8">
-            <div className="flex gap-2" role="tablist" aria-label={locale === "fr" ? "Choisir une image" : "Choose an image"}>
+            <div className="flex items-center gap-2" role="tablist" aria-label={locale === "fr" ? "Choisir une image" : "Choose an image"}>
               {slides.map((slide, index) => (
-                <button key={slide.image} type="button" onClick={() => setActiveIndex(index)} aria-label={`${locale === "fr" ? "Afficher" : "Show"} ${slide.caption}`} aria-selected={index === activeIndex} role="tab" className={`carousel-dot h-2 transition-[width,background-color] duration-300 ${index === activeIndex ? "w-10 bg-[var(--secondary)]" : "w-2 bg-[var(--primary)]/25"}`} />
+                <button
+                  key={slide.image}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  aria-label={`${locale === "fr" ? "Afficher" : "Show"} ${slide.caption}`}
+                  aria-selected={index === activeIndex}
+                  role="tab"
+                  className={`carousel-dot h-2.5 rounded-none transition-all duration-500 ease-out ${
+                    index === activeIndex ? "w-10 bg-[var(--secondary)] shadow-md" : "w-3 bg-[var(--primary)]/30 hover:bg-[var(--primary)]/50"
+                  }`}
+                />
               ))}
             </div>
             <div className="flex gap-2">
-              <button type="button" onClick={showPrevious} className="app-button grid h-12 w-12 place-items-center border border-[var(--primary)]/20 bg-[var(--surface-bright)] text-lg text-[var(--primary)]" aria-label={locale === "fr" ? "Image précédente" : "Previous image"}>←</button>
-              <button type="button" onClick={showNext} className="app-button grid h-12 w-12 place-items-center bg-[var(--primary)] text-lg text-white" aria-label={locale === "fr" ? "Image suivante" : "Next image"}>→</button>
+              <button
+                type="button"
+                onClick={showPrevious}
+                className="app-button grid h-12 w-12 place-items-center rounded-none border border-[var(--primary)]/20 bg-[var(--surface-bright)] text-lg text-[var(--primary)] transition-all duration-300 hover:bg-[var(--primary)] hover:text-white"
+                aria-label={locale === "fr" ? "Image précédente" : "Previous image"}
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                onClick={showNext}
+                className="app-button grid h-12 w-12 place-items-center rounded-none bg-[var(--primary)] text-lg text-white transition-all duration-300 hover:bg-[#0b4f7e]"
+                aria-label={locale === "fr" ? "Image suivante" : "Next image"}
+              >
+                →
+              </button>
             </div>
           </div>
         </div>
