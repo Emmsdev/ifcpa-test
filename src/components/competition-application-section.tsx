@@ -135,54 +135,79 @@ export function CompetitionApplicationSection({ locale }: { locale: Locale }) {
           </div>
 
           <div data-scroll-item className="frame-corners relative border border-[var(--outline-variant)] bg-[var(--surface)] p-6 shadow-[var(--shadow-soft)] sm:p-10">
-            {submission.status === "success" ? (
-              <div role="status" className="flex min-h-[520px] flex-col items-center justify-center text-center">
-                <span className="grid h-16 w-16 place-items-center rounded-full bg-[#d9f7e8] text-3xl text-[#0a6b43]" aria-hidden="true">✓</span>
-                <h3 className="mt-6 font-serif text-3xl font-semibold text-[var(--primary)]">{content.successTitle}</h3>
-                <p className="mt-4 max-w-md text-sm leading-6 text-[var(--on-surface-variant)]">{content.successBody}</p>
-                <strong className="mt-5 bg-[var(--secondary-fixed)] px-5 py-3 font-mono text-sm tracking-[0.08em] text-[var(--on-secondary-fixed-variant)]">{submission.reference}</strong>
-                <button type="button" onClick={() => setSubmission({ status: "idle" })} className="mt-8 text-sm font-semibold text-[var(--secondary)] underline underline-offset-4">{content.retry}</button>
-              </div>
-            ) : (
-              <form onSubmit={submitApplication} noValidate>
-                <FormGroup title={content.identity}>
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <Field label={content.firstName}><input required autoComplete="given-name" name="firstName" maxLength={80} /></Field>
-                    <Field label={content.lastName}><input required autoComplete="family-name" name="lastName" maxLength={80} /></Field>
-                    <Field label={content.birthDate}><input required name="birthDate" type="date" max="2010-09-11" /></Field>
-                    <Field label={content.nationality}><input required autoComplete="country-name" name="nationality" maxLength={80} /></Field>
-                    <Field label={content.city}><input required autoComplete="address-level2" name="city" maxLength={100} /></Field>
-                    <Field label={content.phone}><input required autoComplete="tel" name="phone" type="tel" minLength={8} maxLength={30} /></Field>
-                    <div className="sm:col-span-2"><Field label={content.email}><input required autoComplete="email" name="email" type="email" maxLength={160} /></Field></div>
-                  </div>
-                </FormGroup>
+            <form onSubmit={submitApplication} noValidate>
+              <FormGroup title={content.identity}>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <Field label={content.firstName}><input required autoComplete="given-name" name="firstName" maxLength={80} /></Field>
+                  <Field label={content.lastName}><input required autoComplete="family-name" name="lastName" maxLength={80} /></Field>
+                  <Field label={content.birthDate}><input required name="birthDate" type="date" max="2010-09-11" /></Field>
+                  <Field label={content.nationality}><input required autoComplete="country-name" name="nationality" maxLength={80} /></Field>
+                  <Field label={content.city}><input required autoComplete="address-level2" name="city" maxLength={100} /></Field>
+                  <Field label={content.phone}><input required autoComplete="tel" name="phone" type="tel" minLength={8} maxLength={30} /></Field>
+                  <div className="sm:col-span-2"><Field label={content.email}><input required autoComplete="email" name="email" type="email" maxLength={160} /></Field></div>
+                </div>
+              </FormGroup>
 
-                <FormGroup title={content.application}>
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <Field label={content.candidateType}><select required name="candidateType" defaultValue=""><option value="" disabled>-</option>{candidateTypeOptions.map((option) => <option key={option.value} value={option.value}>{option[locale]}</option>)}</select></Field>
-                    <Field label={content.qualification}><select required name="qualification" value={qualification} onChange={(event) => setQualification(event.target.value)}><option value="" disabled>-</option>{qualificationOptions.map((option) => <option key={option.value} value={option.value}>{option[locale]}</option>)}</select></Field>
-                    <div className="sm:col-span-2"><Field label={content.firstChoice}><select key={`first-${qualification}`} required disabled={!qualification} name="firstChoice" defaultValue=""><option value="" disabled>-</option>{eligibleProgrammes.map((option) => <option key={option.value} value={option.value}>{option[locale]}</option>)}</select></Field></div>
-                    <div className="sm:col-span-2"><Field label={content.secondChoice}><select key={`second-${qualification}`} disabled={!qualification} name="secondChoice" defaultValue=""><option value="">{content.noSecondChoice}</option>{eligibleProgrammes.map((option) => <option key={option.value} value={option.value}>{option[locale]}</option>)}</select></Field></div>
-                    <div className="sm:col-span-2"><Field label={content.message}><textarea name="message" rows={3} maxLength={1000} /></Field></div>
-                  </div>
-                </FormGroup>
+              <FormGroup title={content.application}>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <Field label={content.candidateType}><select required name="candidateType" defaultValue=""><option value="" disabled>-</option>{candidateTypeOptions.map((option) => <option key={option.value} value={option.value}>{option[locale]}</option>)}</select></Field>
+                  <Field label={content.qualification}><select required name="qualification" value={qualification} onChange={(event) => setQualification(event.target.value)}><option value="" disabled>-</option>{qualificationOptions.map((option) => <option key={option.value} value={option.value}>{option[locale]}</option>)}</select></Field>
+                  <div className="sm:col-span-2"><Field label={content.firstChoice}><select key={`first-${qualification}`} required disabled={!qualification} name="firstChoice" defaultValue=""><option value="" disabled>-</option>{eligibleProgrammes.map((option) => <option key={option.value} value={option.value}>{option[locale]}</option>)}</select></Field></div>
+                  <div className="sm:col-span-2"><Field label={content.secondChoice}><select key={`second-${qualification}`} disabled={!qualification} name="secondChoice" defaultValue=""><option value="">{content.noSecondChoice}</option>{eligibleProgrammes.map((option) => <option key={option.value} value={option.value}>{option[locale]}</option>)}</select></Field></div>
+                  <div className="sm:col-span-2"><Field label={content.message}><textarea name="message" rows={3} maxLength={1000} /></Field></div>
+                </div>
+              </FormGroup>
 
-                <div className="hidden" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
-                <label className="mt-7 flex cursor-pointer items-start gap-3 text-sm leading-6 text-[var(--on-surface-variant)]">
-                  <input required name="consent" type="checkbox" className="mt-1 h-4 w-4 shrink-0 accent-[var(--secondary)]" />
-                  <span>{content.consent}</span>
-                </label>
+              <div className="hidden" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
+              <label className="mt-7 flex cursor-pointer items-start gap-3 text-sm leading-6 text-[var(--on-surface-variant)]">
+                <input required name="consent" type="checkbox" className="mt-1 h-4 w-4 shrink-0 accent-[var(--secondary)]" />
+                <span>{content.consent}</span>
+              </label>
 
-                {submission.status === "error" && <p role="alert" className="mt-5 border-l-2 border-[var(--error)] bg-[#fff1f0] p-4 text-sm text-[var(--error)]">{submission.message}</p>}
-                <button type="submit" disabled={submission.status === "sending"} className="group mt-7 flex w-full items-center justify-center gap-3 bg-[var(--error)] px-6 py-4 text-base font-bold text-white shadow-lg shadow-[var(--error)]/20 disabled:cursor-wait disabled:opacity-65">
-                  {submission.status === "sending" ? content.sending : content.submit}
-                  <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
-                </button>
-              </form>
-            )}
+              {submission.status === "error" && <p role="alert" className="mt-5 border-l-2 border-[var(--error)] bg-[#fff1f0] p-4 text-sm text-[var(--error)]">{submission.message}</p>}
+              <button type="submit" disabled={submission.status === "sending"} className="group mt-7 flex w-full items-center justify-center gap-3 bg-[var(--error)] px-6 py-4 text-base font-bold text-white shadow-lg shadow-[var(--error)]/20 disabled:cursor-wait disabled:opacity-65">
+                {submission.status === "sending" ? content.sending : content.submit}
+                <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
+              </button>
+            </form>
           </div>
         </div>
       </div>
+
+      {/* Pop-up Modal de Confirmation pour l'Inscription au Concours */}
+      {submission.status === "success" && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-in fade-in duration-200">
+          <div role="dialog" aria-modal="true" className="relative w-full max-w-lg overflow-hidden rounded-none bg-white p-8 text-center shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-100">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-none bg-emerald-100 text-emerald-600 shadow-inner">
+              <svg className="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+
+            <h3 className="mt-6 font-serif text-2xl font-bold text-[#06395f] sm:text-3xl">{content.successTitle}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">{content.successBody}</p>
+
+            <div className="mt-6 rounded-none border border-amber-200 bg-amber-50/80 p-5 text-center">
+              <span className="block text-xs font-bold uppercase tracking-wider text-amber-800">Référence de candidature</span>
+              <strong className="mt-2 block font-mono text-xl font-extrabold tracking-widest text-[#06395f]">
+                {submission.reference}
+              </strong>
+            </div>
+
+            <p className="mt-4 text-xs text-slate-500">
+              Un email de confirmation contenant tous les détails de votre demande a été automatiquement envoyé.
+            </p>
+
+            <button
+              type="button"
+              onClick={() => setSubmission({ status: "idle" })}
+              className="mt-8 w-full rounded-none bg-[#06395f] py-4 text-base font-bold text-white shadow-lg shadow-[#06395f]/20 transition hover:bg-[#0b4f7e] focus:outline-none"
+            >
+              Fermer et revenir au site
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

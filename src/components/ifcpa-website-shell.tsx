@@ -98,7 +98,7 @@ export function IfcpaWebsiteShell() {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <a href="#inscription-concours" className="app-button hidden items-center gap-2 bg-[var(--error)] px-4 py-3 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-white shadow-md shadow-[var(--error)]/15 sm:inline-flex">
+            <a href="#admissions" className="app-button hidden items-center gap-2 bg-[var(--error)] px-4 py-3 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-white shadow-md shadow-[var(--error)]/15 sm:inline-flex">
               <span className="h-1.5 w-1.5 rounded-full bg-white" aria-hidden="true" />{locale === "fr" ? "Concours · 2026" : "Apply · 2026"}
             </a>
             <LanguageSelector locale={locale} onChange={setLocale} />
@@ -126,7 +126,7 @@ export function IfcpaWebsiteShell() {
         >
           <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center py-8">
             <p className="mb-5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--secondary)]">IFCPA / CRTV</p>
-            <a href="#inscription-concours" onClick={() => setIsMenuOpen(false)} className="app-button mb-6 flex items-center justify-between bg-[var(--error)] px-5 py-4 font-bold text-white">
+            <a href="#admissions" onClick={() => setIsMenuOpen(false)} className="app-button mb-6 flex items-center justify-between bg-[var(--error)] px-5 py-4 font-bold text-white">
               <span>{locale === "fr" ? "S'inscrire au concours 2026" : "Apply for the 2026 entrance exam"}</span><span aria-hidden="true">→</span>
             </a>
             <div className="border-t border-white/15">

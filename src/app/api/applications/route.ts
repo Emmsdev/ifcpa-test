@@ -61,7 +61,18 @@ function escapeHtml(value: string) {
 
 export async function POST(request: NextRequest) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== request.nextUrl.origin) return Response.json({ message: "Origine de la demande non autorisée." }, { status: 403 });
+  const host = request.headers.get("host");
+  if (origin && host) {
+    try {
+      const originUrl = new URL(origin);
+      const hostName = host.split(":")[0];
+      if (originUrl.hostname !== hostName && originUrl.hostname !== "localhost" && originUrl.hostname !== "127.0.0.1") {
+        return Response.json({ message: "Origine de la demande non autorisée." }, { status: 403 });
+      }
+    } catch {
+      // Ignore URL parsing errors
+    }
+  }
   const contentLength = Number(request.headers.get("content-length") ?? "0");
   if (contentLength > maxBodySize) return Response.json({ message: "Le formulaire est trop volumineux." }, { status: 413 });
 
@@ -99,9 +110,133 @@ export async function POST(request: NextRequest) {
     ["Deuxième choix", application.secondChoice ? optionLabel(programmeOptions, application.secondChoice) : "Non renseigné"],
     ["Précision", application.message || "Aucune"],
   ];
-  const htmlRows = rows.map(([label, value]) => `<tr><th style="padding:10px 12px;text-align:left;border-bottom:1px solid #dce5ee;color:#06395f">${escapeHtml(label)}</th><td style="padding:10px 12px;border-bottom:1px solid #dce5ee">${escapeHtml(value)}</td></tr>`).join("");
-
   try {
+    const htmlContent = `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Préinscription Concours IFCPA 2026</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f4f6f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1e293b;-webkit-font-smoothing:antialiased">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#f4f6f9;padding:24px 12px">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:680px;background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.05);border:1px solid #e2e8f0">
+          
+          <!-- En-tête officiel -->
+          <tr>
+            <td style="background-color:#06395f;padding:28px 32px;color:#ffffff">
+              <table width="100%" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>
+                    <p style="margin:0 0 6px 0;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#f59e0b">IFCPA / CRTV - Concours 2026</p>
+                    <h1 style="margin:0;font-size:22px;font-weight:700;color:#ffffff;line-height:1.3">Nouvelle Préinscription en Ligne</h1>
+                  </td>
+                  <td align="right" valign="top">
+                    <span style="display:inline-block;background-color:rgba(255,255,255,0.15);color:#ffffff;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:600;letter-spacing:0.5px">${escapeHtml(reference)}</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Contenu principal -->
+          <tr>
+            <td style="padding:32px">
+
+              <!-- Section 1 : Informations Candidat -->
+              <div style="margin-bottom:28px">
+                <h2 style="margin:0 0 12px 0;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#06395f;border-bottom:2px solid #e2e8f0;padding-bottom:6px">👤 Informations du Candidat</h2>
+                <table width="100%" cellspacing="0" cellpadding="8" style="font-size:14px;border-collapse:collapse">
+                  <tr>
+                    <td width="35%" style="color:#64748b;font-weight:600">Nom complet :</td>
+                    <td style="color:#0f172a;font-weight:700">${escapeHtml(application.firstName)} ${escapeHtml(application.lastName)}</td>
+                  </tr>
+                  <tr style="background-color:#f8fafc">
+                    <td style="color:#64748b;font-weight:600">Date de naissance :</td>
+                    <td style="color:#0f172a">${escapeHtml(application.birthDate)}</td>
+                  </tr>
+                  <tr>
+                    <td style="color:#64748b;font-weight:600">Nationalité :</td>
+                    <td style="color:#0f172a">${escapeHtml(application.nationality)}</td>
+                  </tr>
+                  <tr style="background-color:#f8fafc">
+                    <td style="color:#64748b;font-weight:600">Ville de résidence :</td>
+                    <td style="color:#0f172a">${escapeHtml(application.city)}</td>
+                  </tr>
+                  <tr>
+                    <td style="color:#64748b;font-weight:600">Statut actuel :</td>
+                    <td style="color:#0f172a">${escapeHtml(optionLabel(candidateTypeOptions, application.candidateType))}</td>
+                  </tr>
+                  <tr style="background-color:#f8fafc">
+                    <td style="color:#64748b;font-weight:600">Diplôme présenté :</td>
+                    <td style="color:#0f172a">${escapeHtml(optionLabel(qualificationOptions, application.qualification))}</td>
+                  </tr>
+                </table>
+              </div>
+
+              <!-- Section 2 : Filières choisies -->
+              <div style="margin-bottom:28px">
+                <h2 style="margin:0 0 12px 0;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#06395f;border-bottom:2px solid #e2e8f0;padding-bottom:6px">🎓 Filières Souhaitées</h2>
+                <div style="background-color:#ecfdf5;border-left:4px solid #10b981;padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:10px">
+                  <p style="margin:0;font-size:12px;color:#047857;font-weight:700;text-transform:uppercase">Premier choix (Principal)</p>
+                  <p style="margin:4px 0 0 0;font-size:16px;color:#064e3b;font-weight:700">${escapeHtml(optionLabel(programmeOptions, application.firstChoice))}</p>
+                </div>
+                ${application.secondChoice ? `
+                <div style="background-color:#f1f5f9;border-left:4px solid #94a3b8;padding:10px 16px;border-radius:0 8px 8px 0">
+                  <p style="margin:0;font-size:11px;color:#475569;font-weight:700;text-transform:uppercase">Deuxième choix (Optionnel)</p>
+                  <p style="margin:2px 0 0 0;font-size:14px;color:#334155;font-weight:600">${escapeHtml(optionLabel(programmeOptions, application.secondChoice))}</p>
+                </div>
+                ` : ''}
+              </div>
+
+              <!-- Section 3 : Coordonnées de contact -->
+              <div style="margin-bottom:28px">
+                <h2 style="margin:0 0 12px 0;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#06395f;border-bottom:2px solid #e2e8f0;padding-bottom:6px">📞 Coordonnées de Contact</h2>
+                <table width="100%" cellspacing="0" cellpadding="8" style="font-size:14px;border-collapse:collapse">
+                  <tr>
+                    <td width="35%" style="color:#64748b;font-weight:600">Téléphone :</td>
+                    <td style="color:#0f172a;font-weight:700">${escapeHtml(application.phone)}</td>
+                  </tr>
+                  <tr style="background-color:#f8fafc">
+                    <td style="color:#64748b;font-weight:600">Email :</td>
+                    <td style="color:#0284c7;font-weight:600">${escapeHtml(application.email)}</td>
+                  </tr>
+                </table>
+              </div>
+
+              ${application.message ? `
+              <!-- Section 4 : Message du candidat -->
+              <div style="margin-bottom:28px">
+                <h2 style="margin:0 0 12px 0;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#06395f;border-bottom:2px solid #e2e8f0;padding-bottom:6px">💬 Précisions / Message</h2>
+                <div style="background-color:#f8fafc;border:1px solid #e2e8f0;padding:14px 16px;border-radius:8px;font-size:14px;color:#334155;line-height:1.5;white-space:pre-wrap">${escapeHtml(application.message)}</div>
+              </div>
+              ` : ''}
+
+              <!-- Bouton d'action -->
+              <div style="text-align:center;margin:32px 0 16px 0">
+                <a href="mailto:${escapeHtml(application.email)}?subject=Re:%20[${escapeHtml(reference)}]%20Votre%20préinscription%20au%20concours%20IFCPA" style="display:inline-block;background-color:#06395f;color:#ffffff;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 2px 6px rgba(6,57,95,0.25)">✉️ Répondre au candidat</a>
+              </div>
+
+            </td>
+          </tr>
+
+          <!-- Pied de page -->
+          <tr>
+            <td style="background-color:#f8fafc;padding:20px 32px;border-top:1px solid #e2e8f0;text-align:center;font-size:12px;color:#64748b">
+              <p style="margin:0 0 4px 0;font-weight:600;color:#06395f">Institut de Formation de la CRTV (IFCPA)</p>
+              <p style="margin:0">Cet email a été envoyé automatiquement suite à une préinscription sur <a href="https://ifcpa-crtv.cm" style="color:#0284c7;text-decoration:none">ifcpa-crtv.cm</a>.</p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+
     const response = await fetch("https://api.brevo.com/v3/smtp/email", {
       method: "POST",
       headers: { accept: "application/json", "api-key": apiKey, "content-type": "application/json" },
@@ -110,7 +245,7 @@ export async function POST(request: NextRequest) {
         to: [{ email: recipientEmail, name: "Service des admissions IFCPA" }],
         replyTo: { email: application.email, name: `${application.firstName} ${application.lastName}` },
         subject: `[${reference}] Nouvelle préinscription au concours IFCPA 2026`,
-        htmlContent: `<html><body style="font-family:Arial,sans-serif;color:#20242a"><h1 style="color:#06395f">Nouvelle préinscription - Concours IFCPA 2026</h1><table style="border-collapse:collapse;width:100%;max-width:760px">${htmlRows}</table><p style="margin-top:24px;color:#59636f">Cette demande provient du formulaire d'inscription en ligne du site IFCPA/CRTV. Répondez directement à cet email pour contacter le candidat.</p></body></html>`,
+        htmlContent,
         tags: ["concours-ifcpa-2026"],
       }),
       cache: "no-store",
