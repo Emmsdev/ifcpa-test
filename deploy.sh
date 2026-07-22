@@ -8,6 +8,10 @@ echo "[$(date '+%Y-%m-%d %H:%M:%S')] Déploiement démarré" | tee -a "$LOG_FILE
 
 cd "$APP_DIR"
 
+# Stash toute modif locale qui pourrait bloquer le pull
+echo "→ git stash..."
+git stash --include-untracked 2>&1 | tee -a "$LOG_FILE" || true
+
 # Pull latest code
 echo "→ git pull..."
 git pull origin main 2>&1 | tee -a "$LOG_FILE"
@@ -16,8 +20,11 @@ git pull origin main 2>&1 | tee -a "$LOG_FILE"
 echo "→ npm ci..."
 npm ci 2>&1 | tee -a "$LOG_FILE"
 
-# Build
+# Load production env vars and build
 echo "→ npm run build..."
+if [ -f .env.production ]; then
+  export $(grep -v '^#' .env.production | xargs)
+fi
 npm run build 2>&1 | tee -a "$LOG_FILE"
 
 # Restart the service
