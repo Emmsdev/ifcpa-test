@@ -27,7 +27,7 @@ export function SeoStructuredData({ content }: { content: SiteCopy }) {
         },
         image: absoluteUrl("/ifcpa-campus.jpg"),
         foundingDate: "1983",
-        email: "ifcpa.crtv@gmail.com",
+        email: "admissions@ifcpa-crtv.com",
         telephone: "+237656700852",
         address: {
           "@type": "PostalAddress",

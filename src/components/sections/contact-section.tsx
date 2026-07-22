@@ -80,7 +80,7 @@ export function ContactSection({ content }: { content: SiteCopy["contact"] }) {
               <address className="mt-8 not-italic font-serif text-xl font-semibold leading-9 tracking-[-0.025em] text-white">
                 IFCPA / CRTV<br />Ekounou, Yaoundé, Cameroun<br />
                 <a href="tel:+237656700852" className="transition hover:text-[var(--secondary)]">+237 6 56 70 08 52</a><br />
-                <a href="mailto:ifcpa.crtv@gmail.com" className="break-all transition hover:text-[var(--secondary)]">ifcpa.crtv@gmail.com</a>
+                <a href="mailto:admissions@ifcpa-crtv.com" className="break-all transition hover:text-[var(--secondary)]">admissions@ifcpa-crtv.com</a>
               </address>
               <div className="mt-12 border-b border-white/15">
                 {content.faq.map((item, index) => (
